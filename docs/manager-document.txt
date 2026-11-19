@@ -1,0 +1,168 @@
+﻿HOmepage:
+
+
+Nav Bar:  Home, About Us, Industries, Blogs, Brands and list the brands under this menu, Experience Centre 
+
+
+
+
+Add this content in the left hand side- Make this as H1 and p tags
+Industrial Safety & Explosion Protection Solutions Across the Middle East
+We are an authorised distributor of world-leading industrial safety and protection technologies, delivering advanced solutions for static grounding, gas detection, anti-static control, explosion protection, pressure testing and hazardous-area electrical equipment. Serving industries across the UAE, Saudi Arabia, Qatar, Bahrain, Kuwait and Oman, we provide reliable products and technical solutions that help protect people, facilities and industrial operations.
+Right side place the industrial video that was placed in the ghwasa industrial landing page
+Please add the video
+
+
+  
+Should look like this, bt move the text to the left and the video to the right
+
+
+
+
+
+
+  
+
+
+
+1. Background white and the black change to blue
+2. Change Slide to talk to Know mOre about us
+3. Behind the card give Alghwasa in blue, little thin font
+
+
+  
+
+
+
+First scroll show About Alghwasa https://foldfolio.framer.website/ 
+
+
+Content”
+
+
+First page:
+About Al Ghwasa 
+Founded in Dubai in 1990, Ghwasa Technical Equipment Trading LLC (Al Ghwasa) is a trusted supplier of marine and industrial equipment, serving customers across the Middle East and international markets.
+With over 35 years of experience, we partner with globally recognised manufacturers to provide specialised solutions in gas detection, static grounding, anti-static technologies, explosion protection, pressure testing and hazardous-area electrical equipment.
+Serving the UAE, Saudi Arabia, Oman, Qatar, Kuwait and Bahrain, we are committed to delivering genuine products, reliable supply and quality solutions that support safer and more efficient marine and industrial operations.
+
+
+
+
+Second Page:
+Our Company at a Glance
+Use these figures as a visual statistics section.
+35+
+Years of Experience
+Established in Dubai in 1990
+12
+Global Brands
+International manufacturing partnerships
+500+
+Products Supplied
+Across marine and industrial applications
+40+
+Countries Served
+International distribution reach
+
+
+3rd page:
+Looking for Reliable Marine & Industrial Equipment?
+Whether you require gas detection equipment, static grounding systems, anti-static solutions, explosion protection technologies or specialised marine equipment, Al Ghwasa is ready to support your requirements.
+Get in touch with our team to explore our product portfolio, discuss your technical requirements and request a quotation.
+
+
+
+
+
+
+  
+
+ Add this section below refer to the images and give color like this and redirect to the brand pages when user clicks
+https://sketchfoliotmpl.framer.website/
+
+
+Place this section below the landing page
+
+
+
+
+  
+
+
+
+And place only industrial clients
+
+
+Explore Our Featured Products 
+
+
+  
+
+
+
+Need to show 1 product from each brand, will tell you what it is and what details to show
+
+
+https://amble.framer.media/
+
+
+Bring Events section here from alghwasa website below
+
+
+Blogs
+
+
+  
+
+
+
+https://byline-letter.framer.website/  Bring this section for blogs and current blogs that we have in the webiste now
+
+
+FAQ:
+
+
+  
+
+
+
+https://byline-letter.framer.website/ 
+
+
+1. Who is Al Ghwasa?
+Ghwasa Technical Equipment Trading LLC (Al Ghwasa) is a Dubai-based supplier of marine and industrial equipment, established in 1990. We supply specialised safety products and technical solutions from internationally recognised manufacturers.
+2. What types of industrial products does Al Ghwasa supply?
+We supply a wide range of marine and industrial products, including gas detection equipment, static grounding systems, anti-static technologies, explosion protection systems, pressure testing equipment and hazardous-area electrical products.
+3. Which brands does Al Ghwasa represent?
+We work with globally recognised manufacturers, including Newson Gale, Gastec, Fraser Anti-Static Techniques, IEP Technologies, Hydrorex and Shimada, offering specialised equipment for marine and industrial applications.
+4. Is Al Ghwasa an authorised distributor for these brands?
+Al Ghwasa works with international manufacturers as an authorised dealer for its represented brands, providing customers access to genuine products and manufacturer-backed solutions. Authorisation is subject to the respective brand agreements.
+5. Which countries does Al Ghwasa serve?
+Based in Dubai, UAE, we serve customers across the Middle East, including the United Arab Emirates, Saudi Arabia, Oman, Qatar, Kuwait and Bahrain, along with other international markets.
+6. Which industries do your products cater to?
+Our products support various industries, including oil and gas, marine and offshore, petrochemical, chemical processing, pharmaceuticals, food manufacturing, power generation and general industrial manufacturing.
+7. How can I choose the right industrial safety equipment?
+The right equipment depends on your application, operating environment, technical requirements and applicable safety standards. Our team can help you identify suitable products based on your specific industrial or marine requirements.
+8. Can I request product specifications and technical details?
+Yes. You can explore individual product pages to find available technical specifications, features and applications. You can also contact our team for additional product information and documentation.
+9. How can I request a quotation for industrial equipment?
+You can submit an enquiry through our website or contact our sales team directly. Share the product name, brand, required quantity and application details to help us prepare a suitable quotation.
+10. Does Al Ghwasa supply products for marine and offshore applications?
+Yes. With a history dating back to 1990, Al Ghwasa supplies marine and industrial equipment for vessel operations, offshore facilities and shore-based industrial applications, supporting a range of equipment and safety requirements.
+Contact us form same like the alghwasa
+
+
+Footer : Remains same
+
+
+Menu will change
+
+
+Logo        By Brands and below this add 5 brand names and land to the brand page products
+
+
+Contact us details 
+
+
+Follow us
