@@ -1,157 +1,240 @@
 "use client";
 
 import Link from "next/link";
-import { SITE_METADATA } from "@/lib/data/site-content";
-import { BRANDS } from "@/lib/data/brands";
-import { ShieldCheck, Mail, Phone, MapPin } from "lucide-react";
+import Image from "next/image";
+import { ArrowUp, MessageCircle } from "lucide-react";
 
 export function SiteFooter() {
-  const topBrands = BRANDS.slice(0, 6);
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   return (
-    <footer className="w-full border-t border-[#0F2E53]/15 bg-white text-[#0F2E53]/80">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-4 lg:gap-12">
-          {/* Brand Info */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#0F2E53] text-white shadow-sm">
-                <ShieldCheck className="h-5 w-5" />
-              </div>
-              <span className="text-lg font-extrabold tracking-tight text-[#0F2E53]">
-                AL GHWASA
-              </span>
-            </div>
+    <footer className="w-full bg-[#0B203C] text-white pt-14 sm:pt-18 lg:pt-20 border-t border-[#164377]/40 relative overflow-hidden">
+      {/* 1. TOP FOOTER COLUMNS - Matching Reference Image 2 */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 pb-12 sm:pb-16 border-b border-white/10">
+          
+          {/* COLUMN 1: BRAND LOGO & AUTHORIZED DISTRIBUTOR STATEMENT */}
+          <div className="space-y-4 lg:pr-4">
+            <Link href="/" className="inline-block transition-opacity hover:opacity-90">
+              <Image
+                src="/images/logo.webp"
+                alt="Al Ghwasa Technical Equipment Trading LLC"
+                width={170}
+                height={55}
+                className="h-11 sm:h-12 w-auto object-contain"
+              />
+            </Link>
 
-            <p className="text-xs leading-relaxed text-[#0F2E53]/75">
-              Trusted supplier of marine and industrial safety equipment in Dubai, UAE
-              since 1990. Partnered with world-leading manufacturers to safeguard
-              facilities and vessels across the Middle East.
+            <p className="text-xs sm:text-[13px] text-white/70 leading-relaxed font-normal">
+              Authorized GASTEC Japan Distributor across UAE, Saudi Arabia, Qatar, Oman, Kuwait, and Bahrain.
             </p>
-
-            <div className="text-xs text-[#0F2E53]/60 font-mono">
-              Est. 1990 · Dubai, United Arab Emirates
-            </div>
           </div>
 
-          {/* Quick Links */}
+          {/* COLUMN 2: QUICK LINKS */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#0F2E53]">
+            <h4 className="text-sm font-bold text-white tracking-wide mb-4">
               Quick Links
             </h4>
-            <ul className="mt-4 space-y-2 text-xs">
+            <ul className="space-y-2 text-xs sm:text-[13px] text-white/70">
               <li>
-                <Link href="/" className="hover:text-[#0F2E53] hover:underline transition-colors">
+                <Link href="/#home" className="hover:text-white transition-colors block py-0.5">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/about-us" className="hover:text-[#0F2E53] hover:underline transition-colors">
+                <Link href="/#brands" className="hover:text-white transition-colors block py-0.5">
+                  All Products
+                </Link>
+              </li>
+              <li>
+                <Link href="/#about" className="hover:text-white transition-colors block py-0.5">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/industries" className="hover:text-[#0F2E53] hover:underline transition-colors">
-                  Industries We Serve
+                <Link href="/experience-centre" className="hover:text-white transition-colors block py-0.5">
+                  Experience Center
                 </Link>
               </li>
               <li>
-                <Link href="/blogs" className="hover:text-[#0F2E53] hover:underline transition-colors">
-                  Technical Blogs & Insights
+                <Link href="/#blogs" className="hover:text-white transition-colors block py-0.5">
+                  Blogs
                 </Link>
               </li>
               <li>
-                <Link href="/experience-centre" className="hover:text-[#0F2E53] hover:underline transition-colors">
-                  Dubai Experience Centre
+                <Link href="/#contact" className="hover:text-white transition-colors block py-0.5">
+                  Contact Us
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Top Brands */}
+          {/* COLUMN 3: GASTEC BY COUNTRIES */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#0F2E53]">
-              By Brands
+            <h4 className="text-sm font-bold text-white tracking-wide mb-4">
+              GASTEC by Countries
             </h4>
-            <ul className="mt-4 space-y-2 text-xs">
-              {topBrands.map((b) => (
-                <li key={b.slug}>
-                  <Link
-                    href={`/brands/${b.slug}`}
-                    className="hover:text-[#0F2E53] transition-colors flex items-center justify-between"
-                  >
-                    <span>{b.name}</span>
-                    <span className="text-[10px] text-[#0F2E53]/50 font-mono">↗</span>
-                  </Link>
-                </li>
-              ))}
+            <ul className="space-y-2 text-xs sm:text-[13px] text-white/70">
+              <li>
+                <Link href="/#contact?country=saudi-arabia" className="hover:text-white transition-colors block py-0.5">
+                  GASTEC Saudi Arabia
+                </Link>
+              </li>
+              <li>
+                <Link href="/#contact?country=qatar" className="hover:text-white transition-colors block py-0.5">
+                  GASTEC Qatar
+                </Link>
+              </li>
+              <li>
+                <Link href="/#contact?country=oman" className="hover:text-white transition-colors block py-0.5">
+                  GASTEC Oman
+                </Link>
+              </li>
+              <li>
+                <Link href="/#contact?country=kuwait" className="hover:text-white transition-colors block py-0.5">
+                  GASTEC Kuwait
+                </Link>
+              </li>
+              <li>
+                <Link href="/#contact?country=bahrain" className="hover:text-white transition-colors block py-0.5">
+                  GASTEC Bahrain
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Contact Details */}
+          {/* COLUMN 4: CONTACT US */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#0F2E53]">
+            <h4 className="text-sm font-bold text-white tracking-wide mb-4">
               Contact Us
             </h4>
-            <div className="mt-4 space-y-2.5 text-xs">
-              <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-[#0F2E53] shrink-0 mt-0.5" />
-                <span>{SITE_METADATA.address}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-[#0F2E53] shrink-0" />
-                <a href={`tel:${SITE_METADATA.phone}`} className="hover:text-[#0F2E53] hover:underline transition-colors">
-                  {SITE_METADATA.phone}
-                </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-[#0F2E53] shrink-0" />
-                <a href={`mailto:${SITE_METADATA.email}`} className="hover:text-[#0F2E53] hover:underline transition-colors">
-                  {SITE_METADATA.email}
-                </a>
-              </div>
-            </div>
-
-            <div className="mt-4 pt-3 border-t border-[#0F2E53]/10">
-              <span className="text-[11px] font-bold text-[#0F2E53] block mb-2">
-                Follow Us
-              </span>
-              <div className="flex items-center gap-2 text-xs">
+            <div className="space-y-2.5 text-xs sm:text-[13px] text-white/70">
+              <p>
                 <a
-                  href={SITE_METADATA.socialLinks.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-lg bg-[#0F2E53]/5 border border-[#0F2E53]/10 px-2.5 py-1 text-[11px] font-semibold text-[#0F2E53] hover:bg-[#0F2E53] hover:text-white transition-colors"
+                  href="mailto:Sales@alghwasa.com"
+                  className="hover:text-white transition-colors block"
                 >
-                  LinkedIn
+                  Sales@alghwasa.com
                 </a>
+              </p>
+              <p>
                 <a
-                  href={SITE_METADATA.socialLinks.facebook}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-lg bg-[#0F2E53]/5 border border-[#0F2E53]/10 px-2.5 py-1 text-[11px] font-semibold text-[#0F2E53] hover:bg-[#0F2E53] hover:text-white transition-colors"
+                  href="tel:+97143968037"
+                  className="hover:text-white transition-colors block font-mono"
                 >
-                  Facebook
+                  +971 4 3968037
                 </a>
-                <a
-                  href={SITE_METADATA.socialLinks.youtube}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-lg bg-[#0F2E53]/5 border border-[#0F2E53]/10 px-2.5 py-1 text-[11px] font-semibold text-[#0F2E53] hover:bg-[#0F2E53] hover:text-white transition-colors"
-                >
-                  YouTube
-                </a>
-              </div>
+              </p>
+              <p className="text-white/60 leading-relaxed text-xs">
+                Unit M08/09, Al Shraifi-1 Zabeel Road, Dubai, UAE
+              </p>
             </div>
           </div>
-        </div>
 
-        <div className="mt-8 pt-6 border-t border-[#0F2E53]/10 flex flex-col sm:flex-row items-center justify-between text-xs text-[#0F2E53]/60 gap-4">
-          <p>© 2026 {SITE_METADATA.companyName}. All rights reserved.</p>
-          <div className="flex items-center gap-4">
-            <span className="text-[11px]">Serving UAE, KSA, Qatar, Oman, Kuwait & Bahrain</span>
+          {/* COLUMN 5: FOLLOW US */}
+          <div>
+            <h4 className="text-sm font-bold text-white tracking-wide mb-4">
+              Follow Us
+            </h4>
+            <div className="flex items-center gap-2.5">
+              {/* LinkedIn */}
+              <a
+                href="https://www.linkedin.com/company/al-ghwasa-technical-equipment-trading"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+              >
+                <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24">
+                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76c.99 0 1.8-.81 1.8-1.8 0-.99-.81-1.8-1.8-1.8-.99 0-1.8.81-1.8 1.8 0 .99.81 1.8 1.8 1.8m1.4 9.74v-8.37H5.06v8.37h2.8z" />
+                </svg>
+              </a>
+
+              {/* YouTube */}
+              <a
+                href="https://www.youtube.com/@alghwasa"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+                className="w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+              >
+                <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24">
+                  <path d="M21.58 7.19a2.76 2.76 0 0 0-1.95-1.96C17.9 4.75 12 4.75 12 4.75s-5.9 0-7.63.48A2.76 2.76 0 0 0 2.42 7.19 29.07 29.07 0 0 0 2 12c0 1.62.14 3.23.42 4.81a2.76 2.76 0 0 0 1.95 1.96c1.73.48 7.63.48 7.63.48s5.9 0 7.63-.48a2.76 2.76 0 0 0 1.95-1.96c.28-1.58.42-3.19.42-4.81 0-1.62-.14-3.23-.42-4.81zM9.75 15.02V8.98l5.53 3.02-5.53 3.02z" />
+                </svg>
+              </a>
+
+              {/* Medium / Blog */}
+              <a
+                href="/blogs"
+                aria-label="Technical Articles"
+                className="w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center text-white font-serif font-black text-sm transition-colors"
+              >
+                M
+              </a>
+            </div>
           </div>
+
         </div>
+      </div>
+
+      {/* 2. BELOW THE FOOTER: INDUSTRIAL BLUEPRINT GRAPHIC (Uploaded Image 3) */}
+      <div className="w-full relative mt-2 overflow-hidden bg-[#0B203C]">
+        <div className="relative w-full">
+          <Image
+            src="/images/footer-blueprint.webp"
+            alt="Al Ghwasa Marine and Industrial Refining Facility Blueprint"
+            width={1920}
+            height={850}
+            className="w-full h-auto object-cover max-h-[380px] sm:max-h-[480px] lg:max-h-[540px] opacity-95"
+            priority={false}
+          />
+
+          {/* Subtle gradient overlay to merge bottom edge smoothly */}
+          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#08172b] to-transparent pointer-events-none" />
+        </div>
+      </div>
+
+      {/* 3. COPYRIGHT BAR */}
+      <div className="w-full bg-[#08172b] py-4 px-4 sm:px-6 lg:px-8 border-t border-white/10">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/50">
+          <p>© {new Date().getFullYear()} Al Ghwasa Technical Eqpt. Tdg. LLC. All rights reserved.</p>
+          <p className="text-[11px] text-white/40 font-mono">
+            Supplying UAE, Saudi Arabia, Qatar, Oman, Kuwait &amp; Bahrain
+          </p>
+        </div>
+      </div>
+
+      {/* 4. FLOATING ACTION CONTROLS (Scroll to Top & WhatsApp Chat matching Image 2) */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-center gap-3">
+        {/* Scroll To Top Button */}
+        <button
+          type="button"
+          onClick={scrollToTop}
+          aria-label="Scroll to top"
+          className="w-11 h-11 rounded-full bg-[#0F2E53] hover:bg-[#164377] text-white shadow-lg border border-white/20 flex items-center justify-center transition-all duration-300 hover:scale-105 focus-visible:outline-none"
+        >
+          <ArrowUp className="w-5 h-5" />
+        </button>
+
+        {/* WhatsApp Quick Chat with Notification Badge */}
+        <a
+          href="https://wa.me/97143968037"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat on WhatsApp"
+          className="relative w-12 h-12 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-110 focus-visible:outline-none"
+        >
+          <MessageCircle className="w-6 h-6 fill-white text-[#25D366]" />
+          {/* Red Notification Badge "1" */}
+          <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white shadow-sm ring-2 ring-white">
+            1
+          </span>
+        </a>
       </div>
     </footer>
   );

@@ -87,12 +87,12 @@ export function FAQSection({
     >
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start relative">
-          
+
           {/* ========================================================= */}
           {/* LEFT COLUMN: Title, Subtitle & Copy Email Pill           */}
           {/* Fixed / Sticky on large screens while right side scrolls   */}
           {/* ========================================================= */}
-          <div className="lg:col-span-4 lg:sticky lg:top-10 self-start">
+          <div className="lg:col-span-4 lg:sticky lg:top-20 self-start">
             <h2
               className="font-serif text-4xl sm:text-5xl font-normal text-[#121316] tracking-tight leading-[1.15]"
               style={{

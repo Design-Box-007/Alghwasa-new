@@ -1,34 +1,33 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { MAIN_NAVIGATION } from "@/lib/data/site-content";
 import { BrandsDropdown } from "@/components/navigation/BrandsDropdown";
 import { MobileNavigation } from "@/components/navigation/MobileNavigation";
-import { ShieldCheck, PhoneCall } from "lucide-react";
+import { PhoneCall } from "lucide-react";
 
 export function SiteHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[#0F2E53]/15 bg-white/90 backdrop-blur-md transition-colors">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Brand Logo */}
+    <header className="sticky top-0 z-50 w-full border-b border-[#0F2E53]/15 bg-white/95 backdrop-blur-md transition-colors">
+      <div className="mx-auto flex h-16 sm:h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        {/* Brand Logo - Uses uploaded official logo */}
         <Link
           href="/"
-          className="flex items-center gap-2.5 font-bold tracking-tight text-[#0F2E53] transition-opacity hover:opacity-90"
+          className="flex items-center gap-2.5 transition-opacity hover:opacity-90 py-1"
+          title="Al Ghwasa Technical Equipment Trading LLC"
         >
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#0F2E53] text-white shadow-sm shadow-[#0F2E53]/20">
-            <ShieldCheck className="h-5 w-5" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-base font-extrabold tracking-tight leading-none text-[#0F2E53]">
-              AL GHWASA
-            </span>
-            <span className="text-[10px] font-semibold tracking-wider uppercase text-[#0F2E53]/70 leading-none mt-0.5">
-              Technical Equipment
-            </span>
-          </div>
+          <Image
+            src="/images/logo.webp"
+            alt="Al Ghwasa Technical Equipment Trading LLC"
+            width={180}
+            height={55}
+            priority
+            className="h-10 sm:h-12 w-auto object-contain logo-navy"
+          />
         </Link>
 
         {/* Desktop Horizontal Navigation */}

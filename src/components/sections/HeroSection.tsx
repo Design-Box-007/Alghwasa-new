@@ -56,7 +56,7 @@ export function HeroSection({
   return (
     <section
       id={id}
-      className={`relative w-full bg-white p-4 sm:p-6 lg:p-8 border-b border-[#0F2E53]/10 ${className}`}
+      className={`relative w-full bg-white py-14 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 border-b border-[#0F2E53]/10 ${className}`}
     >
       {/* Outer Card Container matching the reference design */}
       <div className="relative w-full rounded-[26px] sm:rounded-[32px] border border-slate-200/90 bg-white p-4 sm:p-6 lg:p-7 shadow-[0_12px_40px_-18px_rgba(15,46,83,0.08)]">

@@ -27,11 +27,12 @@ export interface NavItem {
 }
 
 export const MAIN_NAVIGATION: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "About Us", href: "/about-us" },
-  { label: "Industries", href: "/industries" },
-  { label: "Blogs", href: "/blogs" },
-  { label: "Brands", href: "#", hasDropdown: true },
+  { label: "Home", href: "/#home" },
+  { label: "Industries", href: "/#industries" },
+  { label: "About Us", href: "/#about" },
+  { label: "Brands", href: "/#brands", hasDropdown: true },
+  { label: "Blogs", href: "/#blogs" },
+  { label: "FAQ", href: "/#faq" },
   { label: "Experience Centre", href: "/experience-centre" },
 ];
 

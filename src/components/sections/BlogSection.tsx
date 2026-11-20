@@ -161,7 +161,7 @@ export function BlogSection({
   return (
     <section
       id={id}
-      className={`relative w-full bg-white py-10 sm:py-14 border-b border-[#0F2E53]/10 overflow-hidden ${className}`}
+      className={`relative w-full bg-white py-14 sm:py-20 lg:py-24 border-b border-[#0F2E53]/10 overflow-hidden ${className}`}
     >
       {/* Header with Technical Badge & Subtle Step Navigation */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">

@@ -13,13 +13,6 @@ import {
   ExternalLink,
   MapPin,
   CheckCircle2,
-  Building2,
-  Anchor,
-  Droplet,
-  Compass,
-  Ship,
-  Sun,
-  ShieldCheck,
 } from "lucide-react";
 
 interface Hotspot {
@@ -117,66 +110,6 @@ const HOTSPOTS: Hotspot[] = [
   },
 ];
 
-// Major Regional Industrial & Maritime Clients
-const CLIENTS = [
-  {
-    name: "ADNOC Group",
-    sector: "Upstream, Gas & Refining",
-    region: "Abu Dhabi, UAE",
-    code: "ADNOC",
-    icon: Droplet,
-  },
-  {
-    name: "Saudi Aramco",
-    sector: "Approved Safety Contractors",
-    region: "Dhahran, Saudi Arabia",
-    code: "ARAMCO",
-    icon: Sun,
-  },
-  {
-    name: "Drydocks World",
-    sector: "Ship Repair & Offshore Yard",
-    region: "Dubai, UAE",
-    code: "DRYDOCKS",
-    icon: Ship,
-  },
-  {
-    name: "DP World",
-    sector: "Global Marine Terminals",
-    region: "Jebel Ali, Dubai",
-    code: "DP WORLD",
-    icon: Anchor,
-  },
-  {
-    name: "QatarEnergy",
-    sector: "LNG & Petrochemical Plants",
-    region: "Ras Laffan, Qatar",
-    code: "QATAR ENERGY",
-    icon: Flame,
-  },
-  {
-    name: "Oman Ship Management",
-    sector: "Crude & Gas Tanker Fleet",
-    region: "Muscat, Oman",
-    code: "OSMC",
-    icon: Compass,
-  },
-  {
-    name: "BAPCO Energies",
-    sector: "Refining & Petrochemicals",
-    region: "Kingdom of Bahrain",
-    code: "BAPCO",
-    icon: ShieldCheck,
-  },
-  {
-    name: "Kuwait Oil Company",
-    sector: "Exploration & Production",
-    region: "Ahmadi, Kuwait",
-    code: "KOC",
-    icon: Activity,
-  },
-];
-
 interface WhyChooseSectionProps {
   id?: string;
   className?: string;
@@ -207,7 +140,7 @@ export function WhyChooseSection({
   return (
     <section
       id={id}
-      className={`relative w-full bg-white p-4 sm:p-6 lg:p-8 border-b border-[#0F2E53]/10 ${className}`}
+      className={`relative w-full bg-white py-14 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 border-b border-[#0F2E53]/10 ${className}`}
     >
       {/* Outer Card Container matching Hero & About design system */}
       <div className="relative w-full rounded-[26px] sm:rounded-[32px] border border-slate-200/90 bg-white p-4 sm:p-6 lg:p-7 shadow-[0_12px_40px_-18px_rgba(15,46,83,0.08)]">
@@ -288,6 +221,55 @@ export function WhyChooseSection({
               >
                 <span>All 12+ Brands</span>
               </button>
+            </div>
+            {/* 2. HOVER / ACTIVE CONTENT PLACED CLEANLY BELOW THE IMAGE */}
+            <div className="w-full rounded-2xl bg-slate-50/90 border border-slate-200/90 p-4 shadow-sm transition-all duration-300">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/70 pb-2.5">
+                <div className="flex items-center gap-2">
+                  <div
+                    className="w-2.5 h-2.5 rounded-full shrink-0"
+                    style={{ backgroundColor: activeSpot.brandColor }}
+                  />
+                  <span
+                    className="text-base font-black tracking-tight"
+                    style={{ color: activeSpot.brandColor }}
+                  >
+                    {activeSpot.name}
+                  </span>
+                  <span className="text-slate-300">•</span>
+                  <h4 className="text-xs sm:text-sm font-bold text-[#0F2E53]">
+                    {activeSpot.category}
+                  </h4>
+                </div>
+
+                <div className="flex items-center gap-2 text-[11px] font-medium text-slate-500">
+                  <MapPin className="w-3.5 h-3.5 text-[#0284c7] shrink-0" />
+                  <span>{activeSpot.locationLabel}</span>
+                  <span className="rounded-full bg-emerald-50 text-emerald-700 px-2 py-0.5 font-bold text-[10px] border border-emerald-200/60">
+                    ATEX / IECEx
+                  </span>
+                </div>
+              </div>
+
+              <div className="pt-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="space-y-1">
+                  <p className="text-xs text-slate-600 leading-relaxed max-w-xl">
+                    {activeSpot.description}
+                  </p>
+                  <div className="flex items-center gap-1.5 text-[11px] font-semibold text-[#0F2E53]/80 pt-0.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>{activeSpot.equipmentType}</span>
+                  </div>
+                </div>
+
+                <a
+                  href={activeSpot.brandHref}
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0284c7] hover:text-[#0369a1] bg-white px-3.5 py-2 rounded-xl border border-slate-200 hover:border-slate-300 hover:shadow-xs transition-all shrink-0 cursor-pointer self-start sm:self-center"
+                >
+                  <span>Explore Brand</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
             </div>
           </div>
 
@@ -378,112 +360,8 @@ export function WhyChooseSection({
               </div>
             </div>
 
-            {/* 2. HOVER / ACTIVE CONTENT PLACED CLEANLY BELOW THE IMAGE */}
-            <div className="w-full rounded-2xl bg-slate-50/90 border border-slate-200/90 p-4 shadow-sm transition-all duration-300">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/70 pb-2.5">
-                <div className="flex items-center gap-2">
-                  <div
-                    className="w-2.5 h-2.5 rounded-full shrink-0"
-                    style={{ backgroundColor: activeSpot.brandColor }}
-                  />
-                  <span
-                    className="text-base font-black tracking-tight"
-                    style={{ color: activeSpot.brandColor }}
-                  >
-                    {activeSpot.name}
-                  </span>
-                  <span className="text-slate-300">•</span>
-                  <h4 className="text-xs sm:text-sm font-bold text-[#0F2E53]">
-                    {activeSpot.category}
-                  </h4>
-                </div>
-
-                <div className="flex items-center gap-2 text-[11px] font-medium text-slate-500">
-                  <MapPin className="w-3.5 h-3.5 text-[#0284c7] shrink-0" />
-                  <span>{activeSpot.locationLabel}</span>
-                  <span className="rounded-full bg-emerald-50 text-emerald-700 px-2 py-0.5 font-bold text-[10px] border border-emerald-200/60">
-                    ATEX / IECEx
-                  </span>
-                </div>
-              </div>
-
-              <div className="pt-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div className="space-y-1">
-                  <p className="text-xs text-slate-600 leading-relaxed max-w-xl">
-                    {activeSpot.description}
-                  </p>
-                  <div className="flex items-center gap-1.5 text-[11px] font-semibold text-[#0F2E53]/80 pt-0.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>{activeSpot.equipmentType}</span>
-                  </div>
-                </div>
-
-                <a
-                  href={activeSpot.brandHref}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0284c7] hover:text-[#0369a1] bg-white px-3.5 py-2 rounded-xl border border-slate-200 hover:border-slate-300 hover:shadow-xs transition-all shrink-0 cursor-pointer self-start sm:self-center"
-                >
-                  <span>Explore Brand</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-            </div>
-
           </div>
 
-        </div>
-
-        {/* ========================================================= */}
-        {/* ROW 2: INDUSTRIAL CLIENTS LOGOS & APPROVALS SHOWCASE      */}
-        {/* Added directly inside WhyChooseSection below the facility */}
-        {/* ========================================================= */}
-        <div className="mt-8 pt-6 border-t border-slate-200/90">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-            <div className="flex items-center gap-2">
-              <Building2 className="w-4 h-4 text-[#0F2E53]" />
-              <h3 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#0F2E53]">
-                Trusted by Major Middle East Industrial &amp; Maritime Clients
-              </h3>
-            </div>
-            <span className="text-[11px] font-medium text-slate-500">
-              Supplying Approved Safety Hardware Across GCC Energy, Marine &amp; Offshore Facilities
-            </span>
-          </div>
-
-          {/* Client Logos Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-3.5">
-            {CLIENTS.map((client) => {
-              const ClientIcon = client.icon;
-              return (
-                <div
-                  key={client.name}
-                  className="group p-3.5 rounded-2xl border border-slate-200/90 bg-slate-50/70 hover:bg-white hover:border-[#0F2E53]/30 hover:shadow-xs transition-all flex flex-col justify-between"
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="w-7 h-7 rounded-lg bg-[#0F2E53]/5 group-hover:bg-[#0F2E53]/10 text-[#0F2E53] flex items-center justify-center transition-colors">
-                      <ClientIcon className="w-3.5 h-3.5 text-[#0F2E53]" />
-                    </div>
-                    <span className="text-[10px] font-mono font-bold tracking-wider text-slate-400 group-hover:text-[#0F2E53] transition-colors">
-                      {client.code}
-                    </span>
-                  </div>
-
-                  <div className="mt-3">
-                    <h4 className="text-xs sm:text-[13px] font-bold text-[#0F2E53] tracking-tight group-hover:text-[#164377] transition-colors">
-                      {client.name}
-                    </h4>
-                    <p className="text-[11px] text-slate-500 leading-snug mt-0.5">
-                      {client.sector}
-                    </p>
-                  </div>
-
-                  <div className="mt-2.5 pt-2 border-t border-slate-200/60 flex items-center justify-between text-[10px] text-slate-400 font-medium">
-                    <span>{client.region}</span>
-                    <span className="text-emerald-600 font-semibold">Approved</span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
         </div>
 
       </div>

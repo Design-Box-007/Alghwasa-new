@@ -52,6 +52,11 @@ body {
   line-height: 0.88;
 }
 
+/* Transforms white logo into deep navy #0F2E53 for light backgrounds */
+.logo-navy {
+  filter: brightness(0) saturate(100%) invert(14%) sepia(55%) saturate(1637%) hue-rotate(185deg) brightness(94%) contrast(97%);
+}
+
 /* Custom sleek scrollbar for internal device screen */
 .device-scrollbar::-webkit-scrollbar {
   width: 5px;
@@ -87,5 +92,10 @@ body {
 }
 
 .animate-scroll-left {
-  animation: scrollLeft 30s linear infinite;
+  animation: scrollLeft 32s linear infinite;
+  will-change: transform;
+}
+
+.animate-scroll-left:hover {
+  animation-play-state: paused;
 }
