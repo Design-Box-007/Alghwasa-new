@@ -106,7 +106,7 @@ export function BrandsDropdown({ onSelect }: BrandsDropdownProps) {
 
           <div className="mt-3 pt-2.5 border-t border-[#0F2E53]/10 text-[11px] text-[#0F2E53]/60 flex items-center justify-between">
             <span>Genuine products & manufacturer-backed solutions</span>
-            <span className="font-mono text-[10px] text-[#0F2E53] font-bold">19+ Brands</span>
+            <span className="font-mono text-[10px] text-[#0F2E53] font-bold">6 Brands</span>
           </div>
         </div>
       )}

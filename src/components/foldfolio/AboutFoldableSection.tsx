@@ -4,7 +4,6 @@ import { useRef, useState, useEffect, useMemo } from "react";
 import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import { useDeviceCustomization } from "@/hooks/useDeviceCustomization";
 import { FOLDFOLIO_CONFIG } from "@/lib/animations/fold-config";
-import { FinishDock } from "./FinishDock";
 import { FoldableDevice3D } from "../device/FoldableDevice3D";
 
 interface AboutFoldableSectionProps {
@@ -17,7 +16,7 @@ export function AboutFoldableSection({
   className = "",
 }: AboutFoldableSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const { finish, backdrop, changeFinish } = useDeviceCustomization();
+  const { finish, backdrop } = useDeviceCustomization();
   const cfg = FOLDFOLIO_CONFIG;
 
   // Viewport tracking for dynamic responsive auto-scaling
@@ -253,11 +252,6 @@ export function AboutFoldableSection({
             onOpenClick={handleOpenClick}
             onReopenClick={handleReopenClick}
           />
-        </div>
-
-        {/* 3. COMPACT FINISH SELECTOR DOCK: Anchored cleanly at bottom center */}
-        <div className="absolute bottom-6 sm:bottom-7 left-1/2 -translate-x-1/2 z-30 flex items-center justify-center pointer-events-auto">
-          <FinishDock finish={finish} onFinishChange={changeFinish} />
         </div>
 
       </div>

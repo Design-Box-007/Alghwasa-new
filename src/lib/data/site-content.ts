@@ -5,7 +5,7 @@ export const SITE_METADATA = {
   tagline: "Industrial Safety & Explosion Protection Solutions Across the Middle East",
   establishedYear: 1990,
   yearsOfExperience: "35+",
-  brandsCount: "12+",
+  brandsCount: "6",
   productsCount: "500+",
   countriesServed: "40+",
   phone: "+971-4-3968037",

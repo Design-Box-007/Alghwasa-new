@@ -16,7 +16,7 @@ export function AboutSection({
       subtext: "Established in Dubai in 1990",
     },
     {
-      value: "12",
+      value: "6",
       label: "Global Brands",
       subtext: "International manufacturing partnerships",
     },

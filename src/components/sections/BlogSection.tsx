@@ -3,59 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, BookOpen, ArrowUpRight } from "lucide-react";
-
-interface EditorialCard {
-  id: string;
-  title: string;
-  slug: string;
-  imageSrc: string;
-}
-
-const CARDS: EditorialCard[] = [
-  {
-    id: "all-hands",
-    title: "The quiet death of the all-hands meeting",
-    slug: "combustible-dust-static-electricity-hazards",
-    imageSrc: "/images/blogs/all-hands.jpg",
-  },
-  {
-    id: "200-sources",
-    title: "How I read 200 sources a week without drowning",
-    slug: "enclosed-space-entry-safety-vessels",
-    imageSrc: "/images/blogs/200-sources.jpg",
-  },
-  {
-    id: "two-doors",
-    title: "The two-door test, and where it breaks",
-    slug: "combustible-dust-static-electricity-hazards",
-    imageSrc: "/images/blogs/two-doors.jpg",
-  },
-  {
-    id: "hot-dogs",
-    title: "Costco's $1.50 hot dog, and the math behind it",
-    slug: "marpol-annex-1-bilge-alarm-compliance",
-    imageSrc: "/images/blogs/hot-dogs.jpg",
-  },
-  {
-    id: "the-streak",
-    title: "How Duolingo turned a streak into a business",
-    slug: "enclosed-space-entry-safety-vessels",
-    imageSrc: "/images/blogs/duolingo-streak.jpg",
-  },
-  {
-    id: "airasia",
-    title: "AirAsia, from an airline to a super app",
-    slug: "marpol-annex-1-bilge-alarm-compliance",
-    imageSrc: "/images/blogs/airasia.jpg",
-  },
-  {
-    id: "week-without-meetings",
-    title: "A week without meetings, and what it did to my calendar",
-    slug: "combustible-dust-static-electricity-hazards",
-    imageSrc: "/images/blogs/week-without-meetings.jpg",
-  },
-];
+import { ChevronLeft, ChevronRight, BookOpen, ArrowUpRight, Clock, ArrowRight } from "lucide-react";
+import { BLOGS } from "@/lib/data/blogs";
 
 interface BlogSectionProps {
   id?: string;
@@ -68,7 +17,8 @@ export function BlogSection({
   className = "",
   onNavigate,
 }: BlogSectionProps) {
-  // Start with "Two doors" (index 2) as initial center card, exactly matching the reference screenshot
+  const CARDS = BLOGS;
+  // Start with index 2 as initial center card, exactly matching the reference cover flow
   const [activeIndex, setActiveIndex] = useState(2);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -102,41 +52,41 @@ export function BlogSection({
     let opacity = 1;
     let pointerEvents: "auto" | "none" = "auto";
 
+    let txStyle = "0px";
     if (diff === 0) {
-      // Center card: full scale (1.0), tallest, centered
-      translateX = 0;
+      txStyle = "0px";
       scale = 1.0;
       zIndex = 10;
     } else if (diff === 1) {
-      translateX = 247.08;
+      txStyle = "var(--tx-1)";
       scale = 0.78;
       zIndex = 9;
     } else if (diff === -1) {
-      translateX = -247.08;
+      txStyle = "calc(-1 * var(--tx-1))";
       scale = 0.78;
       zIndex = 9;
     } else if (diff === 2) {
-      translateX = 426;
+      txStyle = "var(--tx-2)";
       scale = 0.60;
       zIndex = 8;
     } else if (diff === -2) {
-      translateX = -426;
+      txStyle = "calc(-1 * var(--tx-2))";
       scale = 0.60;
       zIndex = 8;
     } else if (diff === 3) {
-      translateX = 596.4;
+      txStyle = "var(--tx-3)";
       scale = 0.60;
       zIndex = 7;
       opacity = 0;
       pointerEvents = "none";
     } else if (diff === -3) {
-      translateX = -596.4;
+      txStyle = "calc(-1 * var(--tx-3))";
       scale = 0.60;
       zIndex = 7;
       opacity = 0;
       pointerEvents = "none";
     } else {
-      translateX = diff > 0 ? 800 : -800;
+      txStyle = diff > 0 ? "1000px" : "-1000px";
       scale = 0.5;
       zIndex = 5;
       opacity = 0;
@@ -147,12 +97,11 @@ export function BlogSection({
       position: "absolute" as const,
       left: "50%",
       bottom: "0px",
-      width: "239px",
       zIndex,
       opacity,
       pointerEvents,
       transformOrigin: "50% 100%",
-      transform: `translateX(-50%) translateX(${translateX}px) scale(${scale})`,
+      transform: `translateX(-50%) translateX(${txStyle}) scale(${scale})`,
       transition: "transform 1s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.5s ease",
       willChange: "transform",
     };
@@ -211,11 +160,10 @@ export function BlogSection({
 
       {/* ========================================================= */}
       {/* GALLERY STAGE: Reverse-Engineered Framer Cover Flow Carousel */}
-      {/* Exact Match to Reference Image (media_1795091198790_cf4ae967) */}
+      {/* Dynamic Content Cards Styled in Al Ghwasa Theme Blue */}
       {/* ========================================================= */}
       <div
-        className="relative w-full overflow-hidden select-none"
-        style={{ height: "410px" }}
+        className="blog-coverflow-stage relative w-full overflow-hidden select-none"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
@@ -225,10 +173,10 @@ export function BlogSection({
 
           return (
             <div
-              key={card.id}
+              key={card.slug}
               style={cardStyle}
               onClick={() => setActiveIndex(idx)}
-              className="cursor-pointer group"
+              className="cursor-pointer group w-[239px] lg:w-[285px]"
             >
               <Link
                 href={`/blogs/${card.slug}`}
@@ -240,35 +188,73 @@ export function BlogSection({
                 }}
                 className="block w-full focus:outline-none"
               >
-                {/* Book Cover Illustration (1800x2400 aspect ratio) */}
+                {/* Dynamic Technical Editorial Card (Aspect ratio 1800/2400) in Theme Blue */}
                 <div
-                  className="relative w-full overflow-hidden rounded-[18px] bg-slate-100 shadow-[0px_18px_40px_0px_rgba(18,19,22,0.1)] transition-shadow duration-300 group-hover:shadow-[0px_22px_45px_0px_rgba(18,19,22,0.18)]"
+                  className="relative w-full overflow-hidden rounded-[20px] bg-gradient-to-br from-[#071933] via-[#0F2E53] to-[#164377] p-3.5 sm:p-4 lg:p-4.5 flex flex-col justify-between shadow-[0px_18px_40px_0px_rgba(15,46,83,0.25)] border border-white/15 transition-all duration-300 group-hover:shadow-[0px_24px_50px_0px_rgba(15,46,83,0.38)] group-hover:border-cyan-400/40 text-left select-none"
                   style={{
                     width: "100%",
                     aspectRatio: "1800 / 2400",
                   }}
                 >
-                  <Image
-                    src={card.imageSrc}
-                    alt={card.title}
-                    fill
-                    sizes="(min-width: 1200px) 317px, (min-width: 810px) 317px, 317px"
-                    className="object-cover object-center"
-                    priority={isCenter}
-                  />
+                  {/* Subtle decorative grid overlay & radial glows */}
+                  <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none" />
+                  <div className="absolute -top-12 -right-12 w-32 h-32 bg-cyan-400/15 rounded-full blur-2xl pointer-events-none" />
+                  <div className="absolute -bottom-12 -left-12 w-28 h-28 bg-[#0284c7]/20 rounded-full blur-2xl pointer-events-none" />
+
+                  {/* Top: Blog Image Thumbnail with Floating Category Badge */}
+                  <div className="relative z-10 w-full h-[120px] lg:h-[145px] rounded-xl overflow-hidden mb-2 lg:mb-2.5 border border-white/15 shrink-0 bg-slate-900/60 shadow-inner">
+                    <Image
+                      src={card.imageUrl || "/images/industrial-facility-clean.jpg"}
+                      alt={card.title}
+                      fill
+                      sizes="(min-width: 1024px) 350px, 300px"
+                      className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#071933]/90 via-transparent to-black/30 pointer-events-none" />
+
+                    <div className="absolute top-2 left-2 z-10">
+                      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#071933]/90 backdrop-blur-md border border-white/15 text-[9px] font-bold uppercase tracking-wider text-cyan-300 shadow-sm">
+                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                        {card.category}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Middle: Prominent Article Title & Concise Excerpt */}
+                  <div className="relative z-10 my-auto py-1">
+                    <h4 className="font-bold text-[13px] sm:text-[13.5px] lg:text-[14.5px] leading-snug text-white group-hover:text-cyan-200 transition-colors line-clamp-2 tracking-tight">
+                      {card.title}
+                    </h4>
+                    <p className="mt-1 lg:mt-1.5 text-[10.5px] sm:text-[11px] lg:text-[11.5px] leading-relaxed text-slate-300/85 line-clamp-2 font-normal">
+                      {card.excerpt}
+                    </p>
+                  </div>
+
+                  {/* Bottom: Read Time & Action CTA */}
+                  <div className="relative z-10 pt-2 border-t border-white/10 flex items-center justify-between text-xs text-white/70">
+                    <div className="flex items-center gap-1 font-mono text-[10px] text-cyan-200/90">
+                      <Clock className="w-3 h-3 text-cyan-400" />
+                      <span>{card.readTime}</span>
+                    </div>
+
+                    <div className="inline-flex items-center gap-1 text-[11px] font-bold text-white group-hover:text-cyan-300 group-hover:translate-x-0.5 transition-all">
+                      <span>Read Article</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </div>
+                  </div>
                 </div>
 
                 {/* Subtitle / Story Headline Below Cover */}
-                <div className="mt-3 px-0.5">
+                {/* <div className="mt-3 lg:mt-3.5 px-0.5">
                   <h5
-                    className="font-serif text-[13px] sm:text-[14px] leading-snug text-[#121316] font-normal tracking-tight line-clamp-2"
+                    className="font-serif text-[13px] sm:text-[14px] lg:text-[15px] leading-snug text-[#0F2E53] font-normal tracking-tight line-clamp-2 group-hover:text-[#164377] transition-colors"
                     style={{
                       fontFamily: "Georgia, Cambria, 'Times New Roman', Times, serif",
                     }}
                   >
                     {card.title}
                   </h5>
-                </div>
+                </div> */}
               </Link>
             </div>
           );

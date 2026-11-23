@@ -91,11 +91,30 @@ body {
   }
 }
 
-.animate-scroll-left {
-  animation: scrollLeft 32s linear infinite;
+.animate-scroll-left,
+.animate-marquee {
+  animation: scrollLeft 40s linear infinite;
   will-change: transform;
 }
 
-.animate-scroll-left:hover {
+.animate-scroll-left:hover,
+.animate-marquee:hover {
   animation-play-state: paused;
+}
+
+/* Blog Cover Flow responsive geometry */
+.blog-coverflow-stage {
+  --tx-1: 248px;
+  --tx-2: 426px;
+  --tx-3: 596px;
+  height: 420px;
+}
+
+@media (min-width: 1024px) {
+  .blog-coverflow-stage {
+    --tx-1: 300px;
+    --tx-2: 520px;
+    --tx-3: 730px;
+    height: 490px;
+  }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { Phone, PhoneOff, MessageSquare, RotateCcw } from "lucide-react";
+import { Phone, Mail, MessageSquare, RotateCcw } from "lucide-react";
 import Image from "next/image";
 
 interface IncomingCallScreenProps {
@@ -25,7 +25,7 @@ export function IncomingCallScreen({ onReopen }: IncomingCallScreenProps) {
           Industrial Safety &amp; Explosion Protection · Dubai
         </p>
         <p className="text-[11px] font-bold text-[#0F2E53]/60 mt-0.5">
-          +971 4 228 2133 · Ex-Stock UAE &amp; Middle East
+          +971 52 247 1439 · Ex-Stock UAE &amp; Middle East
         </p>
       </div>
 
@@ -60,7 +60,7 @@ export function IncomingCallScreen({ onReopen }: IncomingCallScreenProps) {
         <div className="flex items-center justify-center gap-6">
           {/* WhatsApp Direct Action */}
           <a
-            href="https://wa.me/97142282133"
+            href="https://wa.me/971522471439"
             target="_blank"
             rel="noopener noreferrer"
             className="flex flex-col items-center gap-1 group"
@@ -73,7 +73,7 @@ export function IncomingCallScreen({ onReopen }: IncomingCallScreenProps) {
 
           {/* Direct Phone Call Action */}
           <a
-            href="tel:+97142282133"
+            href="tel:+971522471439"
             className="flex flex-col items-center gap-1 group"
           >
             <div className="w-14 h-14 rounded-full bg-[#0F2E53] hover:bg-[#091D36] text-white flex items-center justify-center shadow-xl transition-transform group-hover:scale-105 animate-bounce">
@@ -82,17 +82,16 @@ export function IncomingCallScreen({ onReopen }: IncomingCallScreenProps) {
             <span className="text-[10px] font-bold text-[#0F2E53]">Answer Call</span>
           </a>
 
-          {/* Re-open / Return to Device */}
-          <button
-            type="button"
-            onClick={onReopen}
+          {/* Email Action (Replaced Decline) */}
+          <a
+            href="mailto:sales@alghwasa.com"
             className="flex flex-col items-center gap-1 group"
           >
-            <div className="w-12 h-12 rounded-full bg-rose-500 hover:bg-rose-600 text-white flex items-center justify-center shadow-lg transition-transform group-hover:scale-105">
-              <PhoneOff className="w-5 h-5" />
+            <div className="w-12 h-12 rounded-full bg-[#164377] hover:bg-[#0F2E53] text-white flex items-center justify-center shadow-lg transition-transform group-hover:scale-105">
+              <Mail className="w-5 h-5" />
             </div>
-            <span className="text-[10px] font-bold text-[#0F2E53]/80">Decline</span>
-          </button>
+            <span className="text-[10px] font-bold text-[#0F2E53]/80">Email</span>
+          </a>
         </div>
 
         {/* Back to Browse Device Link */}

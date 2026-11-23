@@ -1,12 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import {
-  ShieldCheck,
-  Check,
-  ArrowRight,
-  ExternalLink,
-} from "lucide-react";
 
 interface ProductFeature {
   num: string;
@@ -27,286 +21,314 @@ interface FeaturedProductItem {
   tag: string;
   badge: string;
   colorName: string;
+  accentColor: string;
+  themeGradient: string;
+  imageUrl: string;
   features: ProductFeature[];
   specs: ProductSpec[];
   auxText: string;
-  brandHref: string;
-  accentColor: string;
-  themeGradient: string;
-  renderVisual: () => React.ReactNode;
 }
 
 const PRODUCTS: FeaturedProductItem[] = [
   {
     id: "newson-gale",
-    name: "Earth-Rite® PLUS Static Ground Monitoring System",
+    name: "Cen-Stat™ Static Grounding Cable Reels",
     brand: "Newson Gale",
     category: "Static Grounding & Bonding",
-    tag: "Earth-Rite® PLUS",
+    tag: "Cen-Stat™ Cable Reels",
     badge: "Ex-Stock Dubai",
-    colorName: "Stainless / Amber",
+    colorName: "Industrial / Safety Amber",
     accentColor: "#F59E0B",
-    themeGradient: "from-amber-500/10 via-slate-100 to-slate-200/50",
+    themeGradient: "from-amber-500/10 via-slate-50 to-slate-200/50",
+    imageUrl: "https://ik.imagekit.io/ocxgdj8ih/ghwasa-migrated/ChatGPT_Image_Jun_21_2026_02_37_14_PM_eoqjcf_CPs9Dx3-M.png",
     features: [
       {
         num: "01",
-        title: "Zone 0/20 Interlock",
-        desc: "Continuous resistance loop checking under 10 Ohms with automatic pump shutdown.",
+        title: "Auto-Retracting Reel",
+        desc: "Smooth self-retracting spring-driven drum mechanism keeping static cables organized and protected.",
       },
       {
         num: "02",
-        title: "Intrinsically Safe",
-        desc: "Universal clamp circuit certified ATEX, IECEx, and cCSAus for hazardous atmospheres.",
+        title: "Hytrel® Coated Cable",
+        desc: "Chemical-resistant, anti-static spiral sheath with high mechanical tensile durability.",
       },
       {
         num: "03",
-        title: "High-Visibility LED",
-        desc: "Pulse-flashing green cluster confirming safe ground before tanker transfer starts.",
+        title: "ATEX Zone 0/20 Rated",
+        desc: "Certified for safe deployment in high-hazard flammable vapor, gas, and combustible dust areas.",
+      },
+      {
+        num: "04",
+        title: "Heavy-Duty Clamps",
+        desc: "Stainless steel Cen-Stat grounding clamps with tungsten carbide contact points for paint piercing.",
+      },
+      {
+        num: "05",
+        title: "Controlled Tension Stop",
+        desc: "Positive ratchet locking mechanism holds cable at desired operational extension.",
+      },
+      {
+        num: "06",
+        title: "Corrosion Resistance",
+        desc: "Robust epoxy powder-coated steel housing designed for marine and petrochemical environments.",
       },
     ],
     specs: [
-      { value: "10 Ω", label: "max resistance" },
-      { value: "Zone 0", label: "ATEX certified" },
-      { value: "IP66", label: "enclosure rating" },
+      { value: "30 m", label: "max cable length" },
+      { value: "Zone 0/20", label: "ATEX / IECEx" },
+      { value: "< 10 Ω", label: "loop resistance" },
     ],
     auxText: "Ex-stock Dubai warehouse · Official manufacturer warranty · ATEX & IECEx certificates included.",
-    brandHref: "/brands/newson-gale",
-    renderVisual: () => (
-      <div className="relative w-full h-full flex flex-col items-center justify-center">
-        {/* Grounding Clamp Visual */}
-        <div className="relative z-10 flex items-center justify-center">
-          <svg
-            className="w-56 h-56 sm:w-64 sm:h-64 drop-shadow-[0_20px_25px_rgba(15,46,83,0.25)] transition-transform duration-500 hover:scale-105"
-            viewBox="0 0 200 200"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* Coiled Blue Cable */}
-            <path
-              d="M30 160 C 50 170, 70 145, 90 165 C 110 185, 130 155, 150 175 C 165 190, 180 175, 185 160"
-              stroke="#0284c7"
-              strokeWidth="6"
-              strokeLinecap="round"
-              fill="none"
-            />
-            {/* Stainless Steel Jaws */}
-            <path
-              d="M65 70 L115 105 L155 75 L145 60 L110 85 L75 55 Z"
-              fill="#94a3b8"
-              stroke="#475569"
-              strokeWidth="2"
-            />
-            <path
-              d="M65 130 L115 95 L155 125 L145 140 L110 115 L75 145 Z"
-              fill="#cbd5e1"
-              stroke="#475569"
-              strokeWidth="2"
-            />
-            {/* Clamp Pivot & Spring Mechanism */}
-            <circle cx="112" cy="100" r="16" fill="#475569" />
-            <circle cx="112" cy="100" r="9" fill="#e2e8f0" />
-            {/* Tungsten Carbide Contact Tips */}
-            <polygon points="65,70 58,74 65,78" fill="#f59e0b" />
-            <polygon points="65,130 58,126 65,122" fill="#f59e0b" />
-            {/* Amber Status Halo */}
-            <circle cx="112" cy="100" r="28" stroke="#f59e0b" strokeWidth="2" strokeDasharray="4 4" className="animate-spin" style={{ animationDuration: "12s" }} />
-          </svg>
-        </div>
-        {/* Soft Contact Shadow */}
-        <div className="w-48 h-3.5 rounded-full bg-slate-900/15 blur-md -mt-4 pointer-events-none" />
-      </div>
-    ),
   },
   {
     id: "gastec",
-    name: "Gastec GV-100S Precision Gas Sampling Pump Kit",
+    name: "Gas Sampling Pump GV100S / GV100LS / GV110S",
     brand: "Gastec",
     category: "Gas Detection & Sampling",
-    tag: "Gastec GV-100S",
+    tag: "Gastec GV Series",
     badge: "350+ Tubes",
-    colorName: "Metallic / Rose",
+    colorName: "Precision / Metallic Blue",
     accentColor: "#EF4444",
-    themeGradient: "from-rose-500/10 via-slate-100 to-slate-200/50",
+    themeGradient: "from-rose-500/10 via-slate-50 to-slate-200/50",
+    imageUrl: "https://ik.imagekit.io/ocxgdj8ih/ghwasa-migrated/ChatGPT_Image_Jun_21_2026_06_24_08_PM_cjcdfb_bxv18dNEV.png",
     features: [
       {
         num: "01",
         title: "Dual-Volume Intake",
-        desc: "Exact 50ml or 100ml air volume draw with automatic calibrated stroke lock.",
+        desc: "Full stroke (100 ml) and half stroke (50 ml) with automatic calibrated stroke lock.",
       },
       {
         num: "02",
         title: "Ceramic Tip Cutter",
-        desc: "Safe, diamond-edge ampoule cutting slot with interior glass shard receptacle.",
+        desc: "Safe, diamond-edge ampoule cutting slot with interior glass shard storage receptacle.",
       },
       {
         num: "03",
         title: "Zero Spark Hazard",
-        desc: "Fully non-electrical mechanical stroke with built-in flow finish indicator.",
+        desc: "Non-sparking ABS resin body with mechanical stroke requiring zero electrical power.",
+      },
+      {
+        num: "04",
+        title: "Flow Finish Indicator",
+        desc: "Integral visual vacuum indicator confirming completion of precise sample draw.",
+      },
+      {
+        num: "05",
+        title: "Field Tested Durability",
+        desc: "Ergonomic contoured handle providing effortless one-hand operation in confined spaces.",
+      },
+      {
+        num: "06",
+        title: "600+ Gas Library",
+        desc: "Direct compatibility with full range of precision GASTEC colorimetric detector tubes.",
       },
     ],
     specs: [
-      { value: "260 g", label: "pump weight" },
-      { value: "350+", label: "substances detected" },
-      { value: "0.01 ppm", label: "min detection" },
+      { value: "270 g", label: "pump weight" },
+      { value: "50/100 ml", label: "stroke volume" },
+      { value: "600+", label: "vapors detected" },
     ],
     auxText: "Ex-stock Dubai warehouse · Official Gastec Japan calibration certification included.",
-    brandHref: "/brands/gastec",
-    renderVisual: () => (
-      <div className="relative w-full h-full flex flex-col items-center justify-center">
-        {/* Gas Sampling Pump Visual */}
-        <div className="relative z-10 flex items-center justify-center">
-          <svg
-            className="w-56 h-56 sm:w-64 sm:h-64 drop-shadow-[0_20px_25px_rgba(15,46,83,0.25)] transition-transform duration-500 hover:scale-105"
-            viewBox="0 0 200 200"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* Pump Body Cylinder */}
-            <rect x="50" y="86" width="95" height="28" rx="6" fill="#e2e8f0" stroke="#475569" strokeWidth="2.5" />
-            <rect x="55" y="90" width="85" height="20" rx="3" fill="#cbd5e1" />
-            {/* Measurement Scale Marks */}
-            <line x1="75" y1="90" x2="75" y2="100" stroke="#0F2E53" strokeWidth="1.5" />
-            <line x1="95" y1="90" x2="95" y2="105" stroke="#ef4444" strokeWidth="2" />
-            <line x1="115" y1="90" x2="115" y2="100" stroke="#0F2E53" strokeWidth="1.5" />
-            {/* Intake Nose Cone */}
-            <path d="M50 90 L30 96 L30 104 L50 110 Z" fill="#94a3b8" stroke="#475569" strokeWidth="2" />
-            {/* Glass Detector Tube Mounted in Front */}
-            <rect x="10" y="98" width="22" height="4" rx="2" fill="#f87171" stroke="#ef4444" strokeWidth="1" />
-            {/* Pull Handle & Piston Shaft */}
-            <rect x="145" y="96" width="30" height="8" fill="#94a3b8" stroke="#475569" strokeWidth="1.5" />
-            <path d="M175 75 C 182 85, 182 115, 175 125 L168 120 C 173 112, 173 88, 168 80 Z" fill="#ef4444" stroke="#b91c1c" strokeWidth="2" />
-          </svg>
-        </div>
-        {/* Soft Contact Shadow */}
-        <div className="w-48 h-3.5 rounded-full bg-slate-900/15 blur-md -mt-4 pointer-events-none" />
-      </div>
-    ),
   },
   {
     id: "fraser",
-    name: "Fraser NEOS 20 Long-Range 24V Static Eliminator Bar",
+    name: "1250 / 1250-S AC Static Eliminators",
     brand: "Fraser",
     category: "Anti-Static Techniques",
-    tag: "Fraser NEOS 20",
-    badge: "Custom Sizes",
-    colorName: "Sapphire / Blue",
+    tag: "Fraser 1250 Series",
+    badge: "Custom Lengths",
+    colorName: "Sapphire / Electric Blue",
     accentColor: "#3B82F6",
-    themeGradient: "from-blue-500/10 via-slate-100 to-slate-200/50",
+    themeGradient: "from-blue-500/10 via-slate-50 to-slate-200/50",
+    imageUrl: "https://ik.imagekit.io/ocxgdj8ih/ghwasa-migrated/ChatGPT_Image_Jun_23_2026_02_08_21_PM_tmdx20_xr7rIclgG.png",
     features: [
       {
         num: "01",
-        title: "Reactive Ionization",
-        desc: "Dynamic polarity output adapting to electrostatic field charge on fast web lines.",
+        title: "Stay-Sharp Emitters",
+        desc: "Pure titanium and tungsten emitter pins pitched at 10mm for high-density ion output.",
       },
       {
         num: "02",
-        title: "Integrated 24V DC",
-        desc: "Compact onboard power unit eliminating hazardous external high-voltage cables.",
+        title: "Resistive Coupled Safety",
+        desc: "Internal safety resistance limits maximum current below 50 µA for shockless operation.",
       },
       {
         num: "03",
-        title: "1500 mm Range",
-        desc: "High-power tungsten emitters designed for high-speed industrial converting lines.",
+        title: "Anodised Aluminium Body",
+        desc: "Rigid extruded profile with sealed epoxy resin encapsulation protecting inner electronics.",
+      },
+      {
+        num: "04",
+        title: "Hi-Flex Screened Cable",
+        desc: "Shielded 30 kV high-voltage cable prevents electromagnetic interference on machine controls.",
+      },
+      {
+        num: "05",
+        title: "Flexible Mounting",
+        desc: "Choice of fixed mounting slots (1250) or adjustable slide studs (1250-S) along the bar.",
+      },
+      {
+        num: "06",
+        title: "Cleanroom Compatible",
+        desc: "ISO Class 5 cleanroom certified for pharmaceutical, packaging, and high-speed web lines.",
       },
     ],
     specs: [
-      { value: "24 V", label: "DC operating" },
-      { value: "1500 mm", label: "effective range" },
-      { value: "IP67", label: "sealed body" },
+      { value: "6 kV", label: "operating voltage" },
+      { value: "20-150 mm", label: "optimal distance" },
+      { value: "IP66", label: "protection rating" },
     ],
     auxText: "Ex-stock Dubai warehouse · Official Fraser UK warranty & technical integration support.",
-    brandHref: "/brands/fraser-anti-static-techniques",
-    renderVisual: () => (
-      <div className="relative w-full h-full flex flex-col items-center justify-center">
-        {/* Static Eliminator Bar Visual */}
-        <div className="relative z-10 flex items-center justify-center">
-          <svg
-            className="w-56 h-56 sm:w-64 sm:h-64 drop-shadow-[0_20px_25px_rgba(15,46,83,0.25)] transition-transform duration-500 hover:scale-105"
-            viewBox="0 0 200 200"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* Extruded Aluminum Profile Body */}
-            <rect x="25" y="85" width="150" height="24" rx="4" fill="#1e293b" stroke="#0284c7" strokeWidth="2" />
-            <rect x="35" y="90" width="130" height="14" rx="2" fill="#0f172a" />
-            {/* Glowing Ionizing Emitters */}
-            {[45, 65, 85, 105, 125, 145].map((x, i) => (
-              <g key={i}>
-                <circle cx={x} cy="97" r="3" fill="#38bdf8" />
-                <line x1={x} y1="97" x2={x} y2="120" stroke="#38bdf8" strokeWidth="1.5" strokeDasharray="2 3" opacity="0.8" />
-              </g>
-            ))}
-            {/* Diagnostic LED Indicator */}
-            <circle cx="165" cy="97" r="2.5" fill="#10b981" />
-            {/* Industrial Power Connector */}
-            <rect x="175" y="91" width="10" height="12" rx="2" fill="#64748b" />
-          </svg>
-        </div>
-        {/* Soft Contact Shadow */}
-        <div className="w-48 h-3.5 rounded-full bg-slate-900/15 blur-md -mt-4 pointer-events-none" />
-      </div>
-    ),
   },
   {
     id: "iep",
-    name: "IEP Technologies HRD High-Rate Discharge Suppressor",
+    name: "Spark Detector SD300-EX and SDF300-EX",
     brand: "IEP Technologies",
     category: "Explosion Protection",
-    tag: "IEP HRD Suppressor",
-    badge: "ATEX Zone 20",
-    colorName: "Signal Red / Steel",
+    tag: "Atexon® SD300-EX",
+    badge: "ATEX Certified",
+    colorName: "Signal Red / Industrial Steel",
     accentColor: "#DC2626",
-    themeGradient: "from-red-600/10 via-slate-100 to-slate-200/50",
+    themeGradient: "from-red-600/10 via-slate-50 to-slate-200/50",
+    imageUrl: "https://ik.imagekit.io/ocxgdj8ih/ghwasa-migrated/ChatGPT_Image_Jun_21_2026_11_14_58_AM_wgyktx_X5II5f9U0.png",
     features: [
       {
         num: "01",
-        title: "Millisecond Action",
-        desc: "Rapid propellant activation extinguishing dust fireball inside vessel in under 10ms.",
+        title: "Broad Spectral Range",
+        desc: "VIS/NIR/IR optical sensor detecting hot particles and embers through dense material layers.",
       },
       {
         num: "02",
-        title: "Food-Grade Powders",
-        desc: "Sodium bicarbonate extinguishing agent safe for processing food, grain, & pharma.",
+        title: "180° Panoramic Coverage",
+        desc: "Flush lens geometry ensures complete cross-sectional duct monitoring without blind spots.",
       },
       {
         num: "03",
-        title: "Real-Time Monitored",
-        desc: "Dynamic cylinder pressure sensor notifying plant PLC of active operational readiness.",
+        title: "Daylight Insensitive",
+        desc: "Specialized infrared filtering eliminates false triggers from ambient and industrial lighting.",
+      },
+      {
+        num: "04",
+        title: "Direct Suppression Link",
+        desc: "Instantaneous millisecond signal transmission activating automated water mist extinguishers.",
+      },
+      {
+        num: "05",
+        title: "Self-Diagnostic Optics",
+        desc: "Continuous internal lens cleanliness testing and sensor health feedback to plant PLC.",
+      },
+      {
+        num: "06",
+        title: "Severe Environment Rated",
+        desc: "Heavy-duty stainless steel sensor head rated for high-temperature and abrasive pneumatic lines.",
       },
     ],
     specs: [
-      { value: "< 10 ms", label: "deployment speed" },
-      { value: "60 bar", label: "nitrogen charge" },
-      { value: "Zone 20", label: "ATEX certified" },
+      { value: "< 1 ms", label: "detection response" },
+      { value: "180°", label: "field of view" },
+      { value: "Zone 20", label: "ATEX rating" },
     ],
     auxText: "Ex-stock Dubai warehouse · Official IEP factory inspection certificates & NFPA compliance.",
-    brandHref: "/brands/iep-technologies",
-    renderVisual: () => (
-      <div className="relative w-full h-full flex flex-col items-center justify-center">
-        {/* Explosion Suppression Cannon Visual */}
-        <div className="relative z-10 flex items-center justify-center">
-          <svg
-            className="w-56 h-56 sm:w-64 sm:h-64 drop-shadow-[0_20px_25px_rgba(15,46,83,0.25)] transition-transform duration-500 hover:scale-105"
-            viewBox="0 0 200 200"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* Red Pressure Vessel Canister */}
-            <rect x="65" y="60" width="70" height="85" rx="35" fill="#dc2626" stroke="#991b1b" strokeWidth="2.5" />
-            <rect x="75" y="75" width="50" height="55" rx="10" fill="#ef4444" />
-            {/* High-Pressure Flange Mount */}
-            <rect x="55" y="145" width="90" height="15" rx="3" fill="#475569" stroke="#334155" strokeWidth="2" />
-            {/* Actuator & Quick Discharge Valve */}
-            <circle cx="100" cy="55" r="14" fill="#94a3b8" stroke="#475569" strokeWidth="2" />
-            {/* Integrated Pressure Gauge */}
-            <circle cx="135" cy="85" r="10" fill="#f8fafc" stroke="#475569" strokeWidth="1.5" />
-            <line x1="135" y1="85" x2="140" y2="82" stroke="#dc2626" strokeWidth="1.5" />
-          </svg>
-        </div>
-        {/* Soft Contact Shadow */}
-        <div className="w-48 h-3.5 rounded-full bg-slate-900/15 blur-md -mt-4 pointer-events-none" />
-      </div>
-    ),
+  },
+  {
+    id: "hydrorex",
+    name: "Circular Chart Recorder Papers & Pens",
+    brand: "Hydrorex",
+    category: "Pressure Testing & Recording",
+    tag: "Hydrorex Charts & Pens",
+    badge: "Up to 30K PSI",
+    colorName: "Marine Cyan / Ocean",
+    accentColor: "#0284C7",
+    themeGradient: "from-cyan-500/10 via-slate-50 to-slate-200/50",
+    imageUrl: "https://ik.imagekit.io/ocxgdj8ih/ghwasa-migrated/ChatGPT_Image_Jun_19_2026_02_25_34_PM_vxf4pk_4JNK3Tx0f.png",
+    features: [
+      {
+        num: "01",
+        title: "Precision Calibration",
+        desc: "Calibrated circular grid lines for precise pressure, temperature, and flow verification.",
+      },
+      {
+        num: "02",
+        title: "Universal Recorder Fit",
+        desc: "Directly compatible with Barton, Palmer, OGME, Hydrorex, and Sonceboz chart drives.",
+      },
+      {
+        num: "03",
+        title: "Multiple Rotations",
+        desc: "Available in 1-hour, 4-hour, 24-hour, and 7-day clock rotations for hydrostatic tests.",
+      },
+      {
+        num: "04",
+        title: "High-Fidelity Ink Flow",
+        desc: "Smooth disposable fiber-tipped recorder pens preventing blotches, skips, or ink runs.",
+      },
+      {
+        num: "05",
+        title: "Moisture-Resistant Paper",
+        desc: "Heavyweight archival stock resists humidity, oil mist, and field testing conditions.",
+      },
+      {
+        num: "06",
+        title: "Boxed in 100s",
+        desc: "Cleanly packaged in reinforced moisture-barrier boxes with batch calibration certificates.",
+      },
+    ],
+    specs: [
+      { value: "30,000 PSI", label: "max pressure" },
+      { value: "12\" / 8\"", label: "chart diameter" },
+      { value: "1h - 7d", label: "rotation periods" },
+    ],
+    auxText: "Ex-stock Dubai warehouse · Factory calibrated for Barton, Palmer, OGME & Hydrorex recorders.",
+  },
+  {
+    id: "shimada",
+    name: "SFC Series Ex-Proof Flexible Conduits",
+    brand: "Shimada",
+    category: "Hazardous Area Electrical",
+    tag: "Shimada SFC Conduits",
+    badge: "Zone 1 & 21",
+    colorName: "Metallic / Charcoal Slate",
+    accentColor: "#475569",
+    themeGradient: "from-slate-500/10 via-slate-50 to-slate-200/50",
+    imageUrl: "https://ik.imagekit.io/ocxgdj8ih/ghwasa-migrated/ChatGPT_Image_Jun_21_2026_11_35_16_AM_oujykq_8ikl4G5Nh.png",
+    features: [
+      {
+        num: "01",
+        title: "Heavy-Duty Flameproof",
+        desc: "Certified Ex d IIC Gb for explosive gas atmospheres and Ex tb IIIC Db for combustible dust.",
+      },
+      {
+        num: "02",
+        title: "Vibration Damping",
+        desc: "Accommodates severe motor vibration, piping movement, and thermal expansion safely.",
+      },
+      {
+        num: "03",
+        title: "Stainless Steel Core",
+        desc: "Inner spiral metallic core wrapped in reinforced wire braiding and oil-resistant elastomer.",
+      },
+      {
+        num: "04",
+        title: "Marine Grade Fittings",
+        desc: "Corrosion-resistant brass or stainless steel male/female union end connections.",
+      },
+      {
+        num: "05",
+        title: "High Ingress Sealing",
+        desc: "IP66/IP67 rated joints preventing moisture, marine salt spray, and particulate ingress.",
+      },
+      {
+        num: "06",
+        title: "Zone 1 & 21 Approved",
+        desc: "Ideal for hazardous terminal pumps, offshore deck junction boxes, and process skids.",
+      },
+    ],
+    specs: [
+      { value: "Ex d IIC", label: "explosion rating" },
+      { value: "IP66/IP67", label: "ingress protection" },
+      { value: "-20 to +80°C", label: "temperature" },
+    ],
+    auxText: "Ex-stock Dubai warehouse · Manufactured by SHIMADA Electric Japan · Authorized GCC Agent.",
   },
 ];
 
@@ -344,31 +366,31 @@ export function FeaturedProducts({
     >
       {/* Outer Card Container matching the reference design */}
       <div className="relative w-full rounded-[26px] sm:rounded-[34px] border border-slate-200/90 bg-white p-5 sm:p-7 shadow-[0_12px_44px_-18px_rgba(15,46,83,0.08)]">
-        
+
         {/* 3-Column Grid matching reference image */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
 
           {/* ========================================================= */}
-          {/* 1. LEFT COLUMN: 3 Stacked Feature Callouts (01, 02, 03)   */}
+          {/* 1. LEFT COLUMN: All 6 Feature Callouts (01 through 06)    */}
           {/* ========================================================= */}
-          <div className="lg:col-span-3 flex flex-col justify-center space-y-4">
+          <div className="lg:col-span-3 flex flex-col justify-center space-y-3">
             {currentProduct.features.map((feature, idx) => (
               <div key={feature.num}>
-                <div className="space-y-1">
+                <div className="space-y-0.5">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono font-medium text-slate-400">
+                    <span className="text-xs font-mono font-bold text-slate-400">
                       {feature.num}
                     </span>
-                    <h4 className="text-sm font-bold text-slate-900 tracking-tight">
+                    <h4 className="text-xs sm:text-[13px] font-bold text-slate-900 tracking-tight">
                       {feature.title}
                     </h4>
                   </div>
-                  <p className="text-xs text-slate-500 leading-relaxed pl-6">
+                  <p className="text-[11px] sm:text-xs text-slate-500 leading-snug pl-6">
                     {feature.desc}
                   </p>
                 </div>
                 {idx < currentProduct.features.length - 1 && (
-                  <div className="border-b border-slate-200/70 mt-4" />
+                  <div className="border-b border-slate-100 my-2.5" />
                 )}
               </div>
             ))}
@@ -386,27 +408,32 @@ export function FeaturedProducts({
                 </span>
               </div>
 
-              {/* Dynamic Product Visual Component */}
-              <div className="w-full h-full flex items-center justify-center">
-                {currentProduct.renderVisual()}
+              {/* Real High-Res Product Image from ImageKit */}
+              <div className="relative w-full h-full flex items-center justify-center p-4">
+                <img
+                  src={currentProduct.imageUrl}
+                  alt={currentProduct.name}
+                  className="max-h-[280px] sm:max-h-[340px] w-auto max-w-full object-contain drop-shadow-[0_20px_35px_rgba(15,46,83,0.18)] transition-transform duration-500 hover:scale-105 select-none"
+                  loading="eager"
+                />
               </div>
             </div>
           </div>
 
           {/* ========================================================= */}
-          {/* 3. RIGHT COLUMN: Specs Bar, Variant Selector & Dark CTA   */}
+          {/* 3. RIGHT COLUMN: Specs Bar, 6 Variant Selectors & Dark CTA*/}
           {/* ========================================================= */}
           <div className="lg:col-span-3 flex flex-col justify-between h-full space-y-4">
-            
-            {/* Top Specs Bar: 3 Metric Stats (matching 240g, 32mm, 8mm in reference) */}
+
+            {/* Top Specs Bar: 3 Metric Stats */}
             <div>
               <div className="grid grid-cols-3 gap-2 text-left">
                 {currentProduct.specs.map((spec) => (
                   <div key={spec.label} className="space-y-0.5">
-                    <span className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight block">
+                    <span className="text-lg sm:text-xl lg:text-lg xl:text-xl font-bold text-slate-900 tracking-tight block">
                       {spec.value}
                     </span>
-                    <span className="text-[10px] text-slate-400 uppercase font-medium leading-tight block">
+                    <span className="text-[10px] sm:text-[11px] lg:text-[10px] text-slate-400 uppercase font-medium leading-tight block truncate">
                       {spec.label}
                     </span>
                   </div>
@@ -416,15 +443,15 @@ export function FeaturedProducts({
               {/* Subtle Horizontal Divider */}
               <div className="border-b border-slate-200/70 my-3.5" />
 
-              {/* Variant Selector Row (matching Colour Chalk/Sky thumbnails in reference) */}
+              {/* Variant Selector Row */}
               <div>
-                <div className="flex items-center justify-between text-xs font-semibold mb-2">
-                  <span className="text-slate-400">Model</span>
-                  <span className="text-slate-800 font-bold">{currentProduct.colorName}</span>
+                <div className="flex items-center justify-between text-xs font-semibold mb-2.5">
+                  <span className="text-slate-400">Selected Brand</span>
+                  <span className="text-slate-900 font-bold">{currentProduct.brand}</span>
                 </div>
 
-                {/* 4 Selectable Product Thumbnails */}
-                <div className="grid grid-cols-4 gap-2">
+                {/* 6 Selectable Product Thumbnails - 3 per row in 2 rows on large screens */}
+                <div className="grid grid-cols-3 gap-2.5 sm:gap-3 lg:gap-2">
                   {PRODUCTS.map((prod) => {
                     const isSelected = selectedProductId === prod.id;
                     return (
@@ -432,18 +459,22 @@ export function FeaturedProducts({
                         key={prod.id}
                         type="button"
                         onClick={() => setSelectedProductId(prod.id)}
-                        className={`relative rounded-xl p-2 flex flex-col items-center justify-center aspect-square transition-all cursor-pointer ${
-                          isSelected
+                        className={`relative rounded-xl p-2 sm:p-2.5 lg:p-1.5 flex flex-col items-center justify-center aspect-square transition-all cursor-pointer ${isSelected
                             ? "ring-2 ring-slate-900 border-transparent bg-white shadow-xs scale-105"
                             : "border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-slate-300"
-                        }`}
+                          }`}
                         aria-label={`Select ${prod.name}`}
+                        title={prod.name}
                       >
-                        <div
-                          className="w-3.5 h-3.5 rounded-full"
-                          style={{ backgroundColor: prod.accentColor }}
-                        />
-                        <span className="text-[9px] font-bold text-slate-600 mt-1 truncate max-w-full">
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-10 lg:h-10 xl:w-11 xl:h-11 flex items-center justify-center p-0.5">
+                          <img
+                            src={prod.imageUrl}
+                            alt={prod.brand}
+                            className="w-full h-full object-contain"
+                            loading="lazy"
+                          />
+                        </div>
+                        <span className="text-xs sm:text-[13px] lg:text-[10px] xl:text-[11px] font-bold text-slate-700 mt-1 sm:mt-1.5 lg:mt-1 truncate max-w-full">
                           {prod.brand.split(" ")[0]}
                         </span>
                       </button>
@@ -459,7 +490,7 @@ export function FeaturedProducts({
                 {currentProduct.auxText}
               </p>
 
-              {/* Primary Dark Pill Button with White Pill Badge (matching Shop the Daily in reference) */}
+              {/* Primary Dark Pill Button with White Pill Badge */}
               <button
                 type="button"
                 onClick={() => handleActionClick("contact")}

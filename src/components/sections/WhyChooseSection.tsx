@@ -219,7 +219,7 @@ export function WhyChooseSection({
                 onClick={() => handleActionClick("brands")}
                 className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 py-2.5 text-xs sm:text-sm font-semibold text-[#0F2E53] hover:bg-slate-50 transition-colors cursor-pointer"
               >
-                <span>All 12+ Brands</span>
+                <span>All 6 Brands</span>
               </button>
             </div>
             {/* 2. HOVER / ACTIVE CONTENT PLACED CLEANLY BELOW THE IMAGE */}
@@ -296,7 +296,7 @@ export function WhyChooseSection({
                 <div
                   className="absolute inset-0 w-full h-full pointer-events-none transition-all duration-500 ease-out"
                   style={{
-                    clipPath: `circle(85px at ${activeSpot.x}% ${activeSpot.y}%)`,
+                    clipPath: `circle(75px at ${activeSpot.x}% ${activeSpot.y}%)`,
                   }}
                 >
                   <Image
@@ -310,13 +310,13 @@ export function WhyChooseSection({
                   <div
                     className="absolute inset-0"
                     style={{
-                      background: `radial-gradient(circle 85px at ${activeSpot.x}% ${activeSpot.y}%, rgba(2, 132, 199, 0.25) 0%, transparent 85%)`,
+                      background: `radial-gradient(circle 75px at ${activeSpot.x}% ${activeSpot.y}%, rgba(2, 132, 199, 0.25) 0%, transparent 85%)`,
                     }}
                   />
                 </div>
               )}
 
-              {/* LAYER 3: HOTSPOT PINS & RIPPLE MARKERS (No covering overlay cards on image!) */}
+              {/* LAYER 3: HOTSPOT PINS & RIPPLE MARKERS */}
               {HOTSPOTS.map((spot) => {
                 const isActive = activeSpotId === spot.id;
                 return (
@@ -332,22 +332,42 @@ export function WhyChooseSection({
                     className="absolute -translate-x-1/2 -translate-y-1/2 z-20 focus:outline-none cursor-pointer group/pin"
                     aria-label={`View ${spot.name} - ${spot.category}`}
                   >
+                    {/* Brand Name Tooltip - shown on hover or when active */}
+                    <div
+                      className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 pointer-events-none transition-all duration-200 z-30 flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-bold shadow-xl whitespace-nowrap ${
+                        isActive
+                          ? "opacity-100 translate-y-0 scale-100 bg-[#0F2E53] text-white ring-1 ring-white/30"
+                          : "opacity-0 translate-y-1 scale-95 group-hover/pin:opacity-100 group-hover/pin:translate-y-0 group-hover/pin:scale-100 bg-slate-900/90 text-white backdrop-blur-xs ring-1 ring-white/15"
+                      }`}
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0" />
+                      <span>{spot.name}</span>
+                      {/* Caret arrow pointing to pin */}
+                      <span
+                        className={`absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent ${
+                          isActive ? "border-t-[#0F2E53]" : "border-t-slate-900/90"
+                        }`}
+                      />
+                    </div>
+
                     {/* Pulsing ring animation */}
                     <span
-                      className={`absolute inset-0 rounded-full transition-all duration-300 ${isActive
-                        ? "animate-ping opacity-75 bg-cyan-400"
-                        : "opacity-40 group-hover/pin:opacity-80 bg-white"
-                        }`}
+                      className={`absolute inset-0 rounded-full transition-all duration-300 ${
+                        isActive
+                          ? "animate-ping opacity-60 bg-cyan-400"
+                          : "opacity-30 group-hover/pin:opacity-75 bg-white"
+                      }`}
                     />
 
-                    {/* Outer Target Circle */}
+                    {/* Outer Target Circle - Reduced size */}
                     <div
-                      className={`relative flex items-center justify-center rounded-full transition-all duration-300 ${isActive
-                        ? "w-7 h-7 sm:w-8 sm:h-8 bg-[#0284c7] ring-4 ring-cyan-300/60 shadow-lg scale-110"
-                        : "w-5 h-5 sm:w-6 sm:h-6 bg-[#0F2E53]/90 ring-2 ring-white/90 shadow-md group-hover/pin:scale-110 group-hover/pin:bg-[#0284c7]"
-                        }`}
+                      className={`relative flex items-center justify-center rounded-full transition-all duration-300 ${
+                        isActive
+                          ? "w-5 h-5 sm:w-6 sm:h-6 bg-[#0284c7] ring-2 sm:ring-3 ring-cyan-300/70 shadow-md scale-105"
+                          : "w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 bg-[#0F2E53]/90 ring-1.5 sm:ring-2 ring-white/90 shadow-sm group-hover/pin:scale-110 group-hover/pin:bg-[#0284c7]"
+                      }`}
                     >
-                      <div className="w-2 h-2 rounded-full bg-white" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-white" />
                     </div>
                   </button>
                 );
@@ -356,7 +376,7 @@ export function WhyChooseSection({
               {/* Subtle Helper Bar in Corner */}
               <div className="absolute top-2.5 left-3 z-10 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-semibold text-white/90 border border-white/10 pointer-events-none">
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                <span>Interactive Facility Spotlight</span>
+                <span>Facility Spotlight: <strong className="text-white font-bold">{activeSpot.name}</strong></span>
               </div>
             </div>
 

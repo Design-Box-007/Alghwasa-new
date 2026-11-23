@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUp, MessageCircle } from "lucide-react";
+import { BRANDS } from "@/lib/data/brands";
 
 export function SiteFooter() {
   const scrollToTop = () => {
@@ -74,37 +75,22 @@ export function SiteFooter() {
             </ul>
           </div>
 
-          {/* COLUMN 3: GASTEC BY COUNTRIES */}
+          {/* COLUMN 3: OUR BRANDS */}
           <div>
             <h4 className="text-sm font-bold text-white tracking-wide mb-4">
-              GASTEC by Countries
+              Our Brands
             </h4>
             <ul className="space-y-2 text-xs sm:text-[13px] text-white/70">
-              <li>
-                <Link href="/#contact?country=saudi-arabia" className="hover:text-white transition-colors block py-0.5">
-                  GASTEC Saudi Arabia
-                </Link>
-              </li>
-              <li>
-                <Link href="/#contact?country=qatar" className="hover:text-white transition-colors block py-0.5">
-                  GASTEC Qatar
-                </Link>
-              </li>
-              <li>
-                <Link href="/#contact?country=oman" className="hover:text-white transition-colors block py-0.5">
-                  GASTEC Oman
-                </Link>
-              </li>
-              <li>
-                <Link href="/#contact?country=kuwait" className="hover:text-white transition-colors block py-0.5">
-                  GASTEC Kuwait
-                </Link>
-              </li>
-              <li>
-                <Link href="/#contact?country=bahrain" className="hover:text-white transition-colors block py-0.5">
-                  GASTEC Bahrain
-                </Link>
-              </li>
+              {BRANDS.map((brand) => (
+                <li key={brand.slug}>
+                  <Link
+                    href={`/brands/${brand.slug}`}
+                    className="hover:text-white transition-colors block py-0.5"
+                  >
+                    {brand.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

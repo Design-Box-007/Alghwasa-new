@@ -5,12 +5,11 @@ import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import { useDeviceCustomization } from "@/hooks/useDeviceCustomization";
 import { FOLDFOLIO_CONFIG } from "@/lib/animations/fold-config";
 import { TopNavigation } from "./TopNavigation";
-import { FinishDock } from "./FinishDock";
 import { FoldableDevice3D } from "../device/FoldableDevice3D";
 
 export function FoldfolioExperience() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { finish, backdrop, changeFinish, changeBackdrop } = useDeviceCustomization();
+  const { finish, backdrop, changeBackdrop } = useDeviceCustomization();
   const cfg = FOLDFOLIO_CONFIG;
 
   // Window dimension tracking for dynamic responsive auto-scaling
@@ -76,10 +75,10 @@ export function FoldfolioExperience() {
     } else {
       const maxScaleLandscape =
         viewport.width >= 1920 ? 0.84 :
-        viewport.width >= 1440 ? 0.80 :
-        viewport.width >= 1200 ? 0.76 :
-        viewport.width >= 1024 ? 0.72 :
-        0.65;
+          viewport.width >= 1440 ? 0.80 :
+            viewport.width >= 1200 ? 0.76 :
+              viewport.width >= 1024 ? 0.72 :
+                0.65;
       const se = viewport.width * 0.90;
       const oe = Math.max(200, viewport.height - 140);
       return Math.min(se / cfg.landscape.W, oe / cfg.landscape.H, maxScaleLandscape);
@@ -285,11 +284,6 @@ export function FoldfolioExperience() {
           onOpenClick={handleOpenClick}
           onReopenClick={handleReopenClick}
         />
-
-        {/* 4. COMPACT FINISH SELECTOR DOCK: Anchored cleanly at bottom center */}
-        <div className="fixed bottom-6 sm:bottom-7 left-1/2 -translate-x-1/2 z-30 flex items-center justify-center pointer-events-auto">
-          <FinishDock finish={finish} onFinishChange={changeFinish} />
-        </div>
       </div>
     </div>
   );
