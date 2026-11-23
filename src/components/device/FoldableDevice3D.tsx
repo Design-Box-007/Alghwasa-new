@@ -818,7 +818,7 @@ export function FoldableDevice3D({
                       }}
                       className="absolute inset-0 w-full h-full z-10"
                     >
-                      <IncomingCallScreen onReopen={onReopenClick} />
+                      <IncomingCallScreen onReopen={onReopenClick} isCompact={true} />
                     </motion.div>
                   </div>
                 </div>

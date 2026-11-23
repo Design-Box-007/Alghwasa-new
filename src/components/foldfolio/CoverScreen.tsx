@@ -11,41 +11,36 @@ interface CoverScreenProps {
 export function CoverScreen({ onUnfold, isCompact = false }: CoverScreenProps) {
   return (
     <div
-      className={`relative w-full h-full bg-[#FFFFFF] text-[#0F2E53] flex flex-col justify-between select-none overflow-hidden rounded-[34px] ${
-        isCompact ? "p-3" : "p-4 sm:p-5"
-      }`}
+      className={`relative w-full h-full bg-[#0F2E53] text-[#FFFFFF] flex flex-col justify-between select-none overflow-hidden rounded-[34px] ${isCompact ? "p-3" : "p-4 sm:p-5"
+        }`}
     >
       {/* 1. TOP HEADER: Large Digital Clock + Date/Status Line in #0F2E53 */}
       <div className={`text-center z-20 ${isCompact ? "pt-1" : "pt-2"}`}>
         <h1
-          className={`font-black tracking-tight font-display-hero text-[#0F2E53] leading-none ${
-            isCompact ? "text-3xl" : "text-[52px]"
-          }`}
+          className={`font-black tracking-tight font-display-hero leading-none ${isCompact ? "text-3xl" : "text-[52px]"
+            }`}
         >
           14:32
         </h1>
         <p
-          className={`font-semibold tracking-[0.16em] uppercase text-[#0F2E53]/70 ${
-            isCompact ? "mt-0.5 text-[8.5px]" : "mt-1.5 text-[10px]"
-          }`}
+          className={`font-semibold tracking-[0.16em] uppercase ${isCompact ? "mt-0.5 text-[8.5px]" : "mt-1.5 text-[10px]"
+            }`}
         >
           Al Ghwasa · Dubai
         </p>
       </div>
 
-      {/* 2. CENTER: Wallpaper Portrait (Framed neatly behind UI) */}
-      <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none overflow-hidden">
-        <div className="relative w-full h-full">
+      {/* 2. CENTER: Brand Logo properly centered on the screen */}
+      <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none px-6">
+        <div className="flex flex-col items-center justify-center">
           <Image
-            src="/images/hero-portrait.png"
-            alt="Al Ghwasa Industrial Safety Wallpaper"
-            fill
+            src="/images/logo.webp"
+            alt="Al Ghwasa Technical Equipment Trading LLC"
+            width={220}
+            height={68}
             priority
-            sizes="(max-width: 768px) 320px, 420px"
-            className="object-cover object-top scale-95 translate-y-4 contrast-[1.03]"
+            className={`${isCompact ? "h-11 sm:h-12 w-auto" : "h-14 sm:h-16 lg:h-20 w-auto"} object-contain logo-light`}
           />
-          {/* Subtle vignette at bottom ensuring notification readability */}
-          <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-white via-white/70 to-transparent" />
         </div>
       </div>
 
