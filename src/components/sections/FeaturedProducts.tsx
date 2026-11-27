@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface ProductFeature {
   num: string;
@@ -341,168 +341,160 @@ interface FeaturedProductsProps {
 export function FeaturedProducts({
   id = "internal-brands",
   className = "",
-  onNavigate,
 }: FeaturedProductsProps) {
-  const [selectedProductId, setSelectedProductId] = useState<string>("newson-gale");
+  const [currentIdx, setCurrentIdx] = useState<number>(0);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
 
-  const currentProduct =
-    PRODUCTS.find((p) => p.id === selectedProductId) || PRODUCTS[0];
+  // Automatically cycle through products every 4 seconds
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      setCurrentIdx((prev) => (prev + 1) % PRODUCTS.length);
+    }, 4000);
 
-  const handleActionClick = (target: string) => {
-    if (onNavigate) {
-      onNavigate(target);
-    } else {
-      const el = document.getElementById(`internal-${target}`) || document.getElementById(target);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-      }
-    }
-  };
+    return () => clearInterval(interval);
+  }, [isPaused]);
+
+  const currentProduct = PRODUCTS[currentIdx];
 
   return (
     <section
       id={id}
-      className={`relative w-full bg-white py-14 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 border-b border-[#0F2E53]/10 ${className}`}
+      className={`relative w-full bg-white py-4 sm:py-6 lg:py-8 px-3 sm:px-6 lg:px-8 border-b border-[#0F2E53]/10 ${className}`}
     >
-      {/* Outer Card Container matching the reference design */}
-      <div className="relative w-full rounded-[26px] sm:rounded-[34px] border border-slate-200/90 bg-white p-5 sm:p-7 shadow-[0_12px_44px_-18px_rgba(15,46,83,0.08)]">
+      {/* Outer Section Card (No shadow, clean border) */}
+      <div className="relative w-full rounded-2xl sm:rounded-3xl border border-slate-200 bg-slate-50/70 p-3 sm:p-5 lg:p-6">
 
-        {/* 3-Column Grid matching reference image */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+        {/* 3-Column Responsive Layout:
+            - Mobile: Center Stage (top), Pointers 1-3 (middle), Pointers 4-6 (bottom)
+            - Tablet: Center Stage (full width), Pointers 1-3 & 4-6 (side-by-side)
+            - Desktop: 3 Columns (Left 1-3, Center Product in White, Right 4-6) */}
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6 items-stretch"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
 
           {/* ========================================================= */}
-          {/* 1. LEFT COLUMN: All 6 Feature Callouts (01 through 06)    */}
+          {/* 1. LEFT FLANK (BLUE): Pointers 1 - 3                      */}
           {/* ========================================================= */}
-          <div className="lg:col-span-3 flex flex-col justify-center space-y-3">
-            {currentProduct.features.map((feature, idx) => (
-              <div key={feature.num}>
-                <div className="space-y-0.5">
+          <div className="col-span-1 sm:col-span-1 lg:col-span-3 order-2 lg:order-1 flex flex-col justify-between rounded-2xl sm:rounded-3xl bg-[#0F2E53] p-5 sm:p-6 text-white border border-[#164377]/80">
+            <div className="space-y-4">
+              <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-cyan-400 font-bold block pb-2 border-b border-white/10">
+                Core Specifications (01 - 03)
+              </span>
+
+              {currentProduct.features.slice(0, 3).map((feature, idx) => (
+                <div key={feature.num} className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono font-bold text-slate-400">
+                    <span className="inline-flex items-center justify-center w-6 h-6 rounded-md bg-white/10 text-cyan-300 font-mono text-xs font-bold shrink-0">
                       {feature.num}
                     </span>
-                    <h4 className="text-xs sm:text-[13px] font-bold text-slate-900 tracking-tight">
+                    <h4 className="text-xs sm:text-[13px] font-bold text-white tracking-tight">
                       {feature.title}
                     </h4>
                   </div>
-                  <p className="text-[11px] sm:text-xs text-slate-500 leading-snug pl-6">
+                  <p className="text-[11px] sm:text-xs text-blue-100/80 leading-relaxed pl-8">
                     {feature.desc}
                   </p>
+                  {idx < 2 && <div className="border-b border-white/10 my-3" />}
                 </div>
-                {idx < currentProduct.features.length - 1 && (
-                  <div className="border-b border-slate-100 my-2.5" />
-                )}
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          {/* ========================================================= */}
-          {/* 2. MIDDLE COLUMN: Product Showcase Stage                  */}
-          {/* ========================================================= */}
-          <div className="lg:col-span-6 flex items-center justify-center">
-            <div className={`relative w-full aspect-[4/3] rounded-3xl bg-gradient-to-br ${currentProduct.themeGradient} overflow-hidden flex items-center justify-center p-6 border border-slate-200/60 shadow-inner group transition-all duration-500`}>
-              {/* Product Pill Tag in Top-Left (matching "The Daily" in reference) */}
-              <div className="absolute top-4 left-4 z-20">
-                <span className="rounded-full bg-white/95 backdrop-blur-md px-3.5 py-1 text-xs font-bold text-slate-800 shadow-2xs border border-slate-200/70">
-                  {currentProduct.tag}
-                </span>
-              </div>
-
-              {/* Real High-Res Product Image from ImageKit */}
-              <div className="relative w-full h-full flex items-center justify-center p-4">
-                <img
-                  src={currentProduct.imageUrl}
-                  alt={currentProduct.name}
-                  className="max-h-[280px] sm:max-h-[340px] w-auto max-w-full object-contain drop-shadow-[0_20px_35px_rgba(15,46,83,0.18)] transition-transform duration-500 hover:scale-105 select-none"
-                  loading="eager"
-                />
-              </div>
+            <div className="pt-3 border-t border-white/10 mt-4 flex items-center justify-between text-[11px] text-blue-200/80">
+              <span className="font-medium">{currentProduct.badge}</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             </div>
           </div>
 
           {/* ========================================================= */}
-          {/* 3. RIGHT COLUMN: Specs Bar, 6 Variant Selectors & Dark CTA*/}
+          {/* 2. CENTER STAGE (PURE WHITE): Brand Name & Product Image  */}
           {/* ========================================================= */}
-          <div className="lg:col-span-3 flex flex-col justify-between h-full space-y-4">
+          <div className="col-span-1 sm:col-span-2 lg:col-span-6 order-1 lg:order-2 flex flex-col items-center justify-between rounded-2xl sm:rounded-3xl bg-white border border-slate-200 p-5 sm:p-7 min-h-[400px] sm:min-h-[460px] lg:min-h-[480px]">
+            {/* Brand Name Placed Above Image in White Area */}
+            <div className="w-full text-center space-y-1 mb-2">
+              <div className="inline-flex items-center gap-2">
+                <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#0284c7]">
+                  {currentProduct.brand}
+                </span>
+                <span className="text-slate-300">•</span>
+                <span className="text-[11px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full">
+                  {currentProduct.category}
+                </span>
+              </div>
+              <h3 className="text-lg sm:text-xl lg:text-2xl font-black text-[#0F2E53] tracking-tight leading-snug max-w-xl mx-auto">
+                {currentProduct.name}
+              </h3>
+            </div>
 
-            {/* Top Specs Bar: 3 Metric Stats */}
-            <div>
-              <div className="grid grid-cols-3 gap-2 text-left">
-                {currentProduct.specs.map((spec) => (
-                  <div key={spec.label} className="space-y-0.5">
-                    <span className="text-lg sm:text-xl lg:text-lg xl:text-xl font-bold text-slate-900 tracking-tight block">
-                      {spec.value}
+            {/* High-Resolution Product Image on Pure White Background (No drop shadow) */}
+            <div className="relative w-full flex-1 flex items-center justify-center p-3 sm:p-4 min-h-[240px] sm:min-h-[280px]">
+              <img
+                src={currentProduct.imageUrl}
+                alt={`${currentProduct.brand} - ${currentProduct.name}`}
+                className="max-h-[240px] sm:max-h-[300px] w-auto max-w-full object-contain select-none transition-transform duration-300 hover:scale-[1.02]"
+                loading="eager"
+              />
+            </div>
+
+            {/* Auto-Rotating Progress Dots (Every Few Secs) */}
+            <div className="w-full flex flex-col items-center gap-2 pt-2 border-t border-slate-100">
+              <div className="flex items-center justify-center gap-2">
+                {PRODUCTS.map((prod, idx) => {
+                  const isActive = idx === currentIdx;
+                  return (
+                    <button
+                      key={prod.id}
+                      type="button"
+                      onClick={() => setCurrentIdx(idx)}
+                      className={`transition-all duration-300 rounded-full cursor-pointer ${isActive
+                        ? "w-7 h-1.5 bg-[#0F2E53]"
+                        : "w-1.5 h-1.5 bg-slate-200 hover:bg-slate-400"
+                        }`}
+                      aria-label={`View ${prod.brand}`}
+                      title={prod.brand}
+                    />
+                  );
+                })}
+              </div>
+              <span className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">
+                Auto-updating · {currentProduct.brand}
+              </span>
+            </div>
+          </div>
+
+          {/* ========================================================= */}
+          {/* 3. RIGHT FLANK (BLUE): Pointers 4 - 6                     */}
+          {/* ========================================================= */}
+          <div className="col-span-1 sm:col-span-1 lg:col-span-3 order-3 lg:order-3 flex flex-col justify-between rounded-2xl sm:rounded-3xl bg-[#0F2E53] p-5 sm:p-6 text-white border border-[#164377]/80">
+            <div className="space-y-4">
+              <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-cyan-400 font-bold block pb-2 border-b border-white/10">
+                Key Features (04 - 06)
+              </span>
+
+              {currentProduct.features.slice(3, 6).map((feature, idx) => (
+                <div key={feature.num} className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex items-center justify-center w-6 h-6 rounded-md bg-white/10 text-cyan-300 font-mono text-xs font-bold shrink-0">
+                      {feature.num}
                     </span>
-                    <span className="text-[10px] sm:text-[11px] lg:text-[10px] text-slate-400 uppercase font-medium leading-tight block truncate">
-                      {spec.label}
-                    </span>
+                    <h4 className="text-xs sm:text-[13px] font-bold text-white tracking-tight">
+                      {feature.title}
+                    </h4>
                   </div>
-                ))}
-              </div>
-
-              {/* Subtle Horizontal Divider */}
-              <div className="border-b border-slate-200/70 my-3.5" />
-
-              {/* Variant Selector Row */}
-              <div>
-                <div className="flex items-center justify-between text-xs font-semibold mb-2.5">
-                  <span className="text-slate-400">Selected Brand</span>
-                  <span className="text-slate-900 font-bold">{currentProduct.brand}</span>
+                  <p className="text-[11px] sm:text-xs text-blue-100/80 leading-relaxed pl-8">
+                    {feature.desc}
+                  </p>
+                  {idx < 2 && <div className="border-b border-white/10 my-3" />}
                 </div>
-
-                {/* 6 Selectable Product Thumbnails - 3 per row in 2 rows on large screens */}
-                <div className="grid grid-cols-3 gap-2.5 sm:gap-3 lg:gap-2">
-                  {PRODUCTS.map((prod) => {
-                    const isSelected = selectedProductId === prod.id;
-                    return (
-                      <button
-                        key={prod.id}
-                        type="button"
-                        onClick={() => setSelectedProductId(prod.id)}
-                        className={`relative rounded-xl p-2 sm:p-2.5 lg:p-1.5 flex flex-col items-center justify-center aspect-square transition-all cursor-pointer ${isSelected
-                            ? "ring-2 ring-slate-900 border-transparent bg-white shadow-xs scale-105"
-                            : "border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-slate-300"
-                          }`}
-                        aria-label={`Select ${prod.name}`}
-                        title={prod.name}
-                      >
-                        <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-10 lg:h-10 xl:w-11 xl:h-11 flex items-center justify-center p-0.5">
-                          <img
-                            src={prod.imageUrl}
-                            alt={prod.brand}
-                            className="w-full h-full object-contain"
-                            loading="lazy"
-                          />
-                        </div>
-                        <span className="text-xs sm:text-[13px] lg:text-[10px] xl:text-[11px] font-bold text-slate-700 mt-1 sm:mt-1.5 lg:mt-1 truncate max-w-full">
-                          {prod.brand.split(" ")[0]}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+              ))}
             </div>
 
-            {/* Bottom Section: Delivery/Warranty Text & Dark Pill CTA Button */}
-            <div className="space-y-3 pt-2">
-              <p className="text-[11px] text-slate-400 leading-relaxed font-normal">
-                {currentProduct.auxText}
-              </p>
-
-              {/* Primary Dark Pill Button with White Pill Badge */}
-              <button
-                type="button"
-                onClick={() => handleActionClick("contact")}
-                className="w-full rounded-full bg-[#0F2E53] hover:bg-[#091D36] text-white pl-5 pr-2 py-2 flex items-center justify-between text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all cursor-pointer group"
-              >
-                <span>Request Equipment Quote</span>
-                <span className="rounded-full bg-white text-[#0F2E53] px-3 py-1 text-xs font-extrabold shadow-xs group-hover:scale-105 transition-transform">
-                  {currentProduct.badge}
-                </span>
-              </button>
+            <div className="pt-3 border-t border-white/10 mt-4 flex items-center justify-between text-[11px] text-blue-200/80">
+              <span className="truncate">{currentProduct.tag}</span>
+              <span className="text-[10px] uppercase font-bold text-cyan-300">Certified</span>
             </div>
-
           </div>
 
         </div>

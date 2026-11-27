@@ -2,18 +2,19 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   ShieldAlert,
-  ArrowRight,
+  ArrowUpRight,
   Zap,
   Activity,
   Gauge,
   Flame,
   Radio,
-  ExternalLink,
   MapPin,
   CheckCircle2,
 } from "lucide-react";
+import { RevealAnimation } from "@/components/ui/RevealAnimation";
 
 interface Hotspot {
   id: string;
@@ -119,28 +120,16 @@ interface WhyChooseSectionProps {
 export function WhyChooseSection({
   id = "internal-industries",
   className = "",
-  onNavigate,
 }: WhyChooseSectionProps) {
   // Default to Newson Gale for initial visual display below image
   const [activeSpotId, setActiveSpotId] = useState<string>("newson-gale");
 
   const activeSpot = HOTSPOTS.find((s) => s.id === activeSpotId) || HOTSPOTS[2];
 
-  const handleActionClick = (target: string) => {
-    if (onNavigate) {
-      onNavigate(target);
-    } else {
-      const el = document.getElementById(`internal-${target}`) || document.getElementById(target);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-      }
-    }
-  };
-
   return (
     <section
       id={id}
-      className={`relative w-full bg-white py-14 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 border-b border-[#0F2E53]/10 ${className}`}
+      className={`relative w-full bg-white py-6 sm:py-8 lg:py-10 px-3 sm:px-6 lg:px-8 border-b border-[#0F2E53]/10 ${className}`}
     >
       {/* Outer Card Container matching Hero & About design system */}
       <div className="relative w-full rounded-[26px] sm:rounded-[32px] border border-slate-200/90 bg-white p-4 sm:p-6 lg:p-7 shadow-[0_12px_40px_-18px_rgba(15,46,83,0.08)]">
@@ -150,79 +139,29 @@ export function WhyChooseSection({
         {/* ========================================================= */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
 
-          {/* LEFT SIDE: Heading, Content & Interactive Brand Selectors */}
+          {/* LEFT SIDE: Heading, Content & Active Brand Info */}
           <div className="lg:col-span-5 flex flex-col justify-center space-y-4">
-            {/* <div>
-              <span className="text-xs sm:text-sm font-mono font-semibold text-slate-400 tracking-wider">
-                003.
-              </span>
-            </div> */}
+            <RevealAnimation backgroundClass="bg-white" direction="bottom">
+              <div>
+                <h2 className="text-2xl sm:text-3xl lg:text-[2rem] font-bold tracking-tight text-[#0F2E53] leading-snug">
+                  Looking for Reliable Marine &amp; Industrial Equipment?
+                </h2>
 
-            <h2 className="text-2xl sm:text-3xl lg:text-[2rem] font-bold tracking-tight text-[#0F2E53] leading-snug">
-              Looking for Reliable Marine &amp; Industrial Equipment?
-            </h2>
-
-            <div className="space-y-3 pt-1">
-              <p className="text-xs sm:text-[13px] lg:text-sm text-slate-600 leading-relaxed font-normal">
-                Whether you require gas detection equipment, static grounding systems, anti-static
-                solutions, explosion protection technologies or specialised marine equipment, Al
-                Ghwasa is ready to support your requirements.
-              </p>
-              <p className="text-xs sm:text-[13px] lg:text-sm text-slate-600 leading-relaxed font-normal">
-                Get in touch with our team to explore our product portfolio, discuss your technical
-                requirements and request a quotation.
-              </p>
-            </div>
-
-            {/* Quick Interactive Brand Pills */}
-            {/* <div className="pt-2">
-              <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-2">
-                Click or hover to highlight facility zones:
-              </span>
-              <div className="grid grid-cols-2 gap-2">
-                {HOTSPOTS.map((spot) => {
-                  const isSelected = activeSpotId === spot.id;
-                  const Icon = spot.icon;
-                  return (
-                    <button
-                      key={spot.id}
-                      type="button"
-                      onMouseEnter={() => setActiveSpotId(spot.id)}
-                      onClick={() => setActiveSpotId(spot.id)}
-                      className={`text-left p-2 rounded-xl text-xs font-semibold transition-all border flex items-center gap-2 cursor-pointer ${
-                        isSelected
-                          ? "bg-[#0F2E53] text-white border-[#0F2E53] shadow-sm scale-[1.02]"
-                          : "bg-slate-50 text-[#0F2E53]/80 border-slate-200/80 hover:bg-slate-100/80 hover:border-slate-300"
-                      }`}
-                    >
-                      <Icon className={`w-3.5 h-3.5 shrink-0 ${isSelected ? "text-cyan-300" : "text-[#0F2E53]"}`} />
-                      <span className="truncate">{spot.name}</span>
-                    </button>
-                  );
-                })}
+                <div className="space-y-3 pt-3">
+                  <p className="text-xs sm:text-[13px] lg:text-sm text-slate-600 leading-relaxed font-normal">
+                    Whether you require gas detection equipment, static grounding systems, anti-static
+                    solutions, explosion protection technologies or specialised marine equipment, Al
+                    Ghwasa is ready to support your requirements.
+                  </p>
+                  <p className="text-xs sm:text-[13px] lg:text-sm text-slate-600 leading-relaxed font-normal">
+                    Get in touch with our team to explore our product portfolio, discuss your technical
+                    requirements and request a quotation.
+                  </p>
+                </div>
               </div>
-            </div> */}
+            </RevealAnimation>
 
-            {/* CTAs */}
-            <div className="pt-2 flex flex-wrap items-center gap-3">
-              <button
-                type="button"
-                onClick={() => handleActionClick("contact")}
-                className="inline-flex items-center gap-2 rounded-full bg-[#0F2E53] text-white px-5 py-2.5 text-xs sm:text-sm font-semibold shadow-sm hover:bg-[#164377] hover:scale-[1.02] transition-all cursor-pointer"
-              >
-                <span>Request a Quotation</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleActionClick("brands")}
-                className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 py-2.5 text-xs sm:text-sm font-semibold text-[#0F2E53] hover:bg-slate-50 transition-colors cursor-pointer"
-              >
-                <span>All 6 Brands</span>
-              </button>
-            </div>
-            {/* 2. HOVER / ACTIVE CONTENT PLACED CLEANLY BELOW THE IMAGE */}
+            {/* HOVER / ACTIVE CONTENT PLACED CLEANLY BELOW THE DESCRIPTION */}
             <div className="w-full rounded-2xl bg-slate-50/90 border border-slate-200/90 p-4 shadow-sm transition-all duration-300">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/70 pb-2.5">
                 <div className="flex items-center gap-2">
@@ -230,12 +169,14 @@ export function WhyChooseSection({
                     className="w-2.5 h-2.5 rounded-full shrink-0"
                     style={{ backgroundColor: activeSpot.brandColor }}
                   />
-                  <span
-                    className="text-base font-black tracking-tight"
+                  <Link
+                    href={activeSpot.brandHref}
+                    className="flex items-center gap-1 text-base font-black tracking-tight hover:underline group"
                     style={{ color: activeSpot.brandColor }}
                   >
-                    {activeSpot.name}
-                  </span>
+                    <span>{activeSpot.name}</span>
+                    <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </Link>
                   <span className="text-slate-300">•</span>
                   <h4 className="text-xs sm:text-sm font-bold text-[#0F2E53]">
                     {activeSpot.category}
@@ -262,21 +203,21 @@ export function WhyChooseSection({
                   </div>
                 </div>
 
-                <a
+                <Link
                   href={activeSpot.brandHref}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0284c7] hover:text-[#0369a1] bg-white px-3.5 py-2 rounded-xl border border-slate-200 hover:border-slate-300 hover:shadow-xs transition-all shrink-0 cursor-pointer self-start sm:self-center"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-[#0F2E53] hover:bg-[#164377] px-3.5 py-2 rounded-xl shadow-xs hover:shadow transition-all shrink-0 cursor-pointer self-start sm:self-center group"
                 >
-                  <span>Explore Brand</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
+                  <span>View All Products</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </Link>
               </div>
             </div>
           </div>
 
-          {/* RIGHT SIDE: Unobstructed Image + Content Displayed Below */}
+          {/* RIGHT SIDE: Unobstructed Image + Interactive Hotspots */}
           <div className="lg:col-span-7 flex flex-col gap-3.5">
 
-            {/* 1. COMPLETELY UNOBSTRUCTED FACILITY IMAGE */}
+            {/* 1. FACILITY IMAGE WITH HOVER HELPER AND INTERACTIVE PINS */}
             <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] rounded-2xl sm:rounded-[24px] overflow-hidden bg-slate-950 border border-slate-200/80 shadow-md group select-none">
 
               {/* LAYER 1: BASE FACILITY IMAGE (Transforms to Black & White) */}
@@ -320,9 +261,9 @@ export function WhyChooseSection({
               {HOTSPOTS.map((spot) => {
                 const isActive = activeSpotId === spot.id;
                 return (
-                  <button
+                  <Link
                     key={spot.id}
-                    type="button"
+                    href={spot.brandHref}
                     onMouseEnter={() => setActiveSpotId(spot.id)}
                     onClick={() => setActiveSpotId(spot.id)}
                     style={{
@@ -332,9 +273,9 @@ export function WhyChooseSection({
                     className="absolute -translate-x-1/2 -translate-y-1/2 z-20 focus:outline-none cursor-pointer group/pin"
                     aria-label={`View ${spot.name} - ${spot.category}`}
                   >
-                    {/* Brand Name Tooltip - shown on hover or when active */}
+                    {/* Brand Name Tooltip - shown on hover or when active, with slanted arrow */}
                     <div
-                      className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 pointer-events-none transition-all duration-200 z-30 flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-bold shadow-xl whitespace-nowrap ${
+                      className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 pointer-events-auto transition-all duration-200 z-30 flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-bold shadow-xl whitespace-nowrap ${
                         isActive
                           ? "opacity-100 translate-y-0 scale-100 bg-[#0F2E53] text-white ring-1 ring-white/30"
                           : "opacity-0 translate-y-1 scale-95 group-hover/pin:opacity-100 group-hover/pin:translate-y-0 group-hover/pin:scale-100 bg-slate-900/90 text-white backdrop-blur-xs ring-1 ring-white/15"
@@ -342,6 +283,7 @@ export function WhyChooseSection({
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0" />
                       <span>{spot.name}</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 text-cyan-300 stroke-[2.5] shrink-0" />
                       {/* Caret arrow pointing to pin */}
                       <span
                         className={`absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent ${
@@ -369,14 +311,14 @@ export function WhyChooseSection({
                     >
                       <div className="w-1.5 h-1.5 rounded-full bg-white" />
                     </div>
-                  </button>
+                  </Link>
                 );
               })}
 
-              {/* Subtle Helper Bar in Corner */}
-              <div className="absolute top-2.5 left-3 z-10 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-semibold text-white/90 border border-white/10 pointer-events-none">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                <span>Facility Spotlight: <strong className="text-white font-bold">{activeSpot.name}</strong></span>
+              {/* Message: Hover over the image to explore our products */}
+              <div className="absolute top-3 left-3 z-10 flex items-center gap-2 bg-[#0F2E53]/90 backdrop-blur-md px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-semibold text-white border border-white/20 shadow-md pointer-events-none">
+                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                <span>Hover over the image to explore our products</span>
               </div>
             </div>
 

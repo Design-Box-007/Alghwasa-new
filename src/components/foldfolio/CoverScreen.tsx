@@ -14,34 +14,22 @@ export function CoverScreen({ onUnfold, isCompact = false }: CoverScreenProps) {
       className={`relative w-full h-full bg-[#0F2E53] text-[#FFFFFF] flex flex-col justify-between select-none overflow-hidden rounded-[34px] ${isCompact ? "p-3" : "p-4 sm:p-5"
         }`}
     >
-      {/* 1. TOP HEADER: Large Digital Clock + Date/Status Line in #0F2E53 */}
-      <div className={`text-center z-20 ${isCompact ? "pt-1" : "pt-2"}`}>
-        <h1
-          className={`font-black tracking-tight font-display-hero leading-none ${isCompact ? "text-3xl" : "text-[52px]"
-            }`}
-        >
-          14:32
-        </h1>
+      {/* 1. TOP HEADER: Brand Logo in place of time */}
+      <div className={`flex flex-col items-center justify-center z-20 ${isCompact ? "pt-4 sm:pt-5" : "pt-4 sm:pt-5 lg:pt-6"}`}>
+        <Image
+          src="/images/logo.webp"
+          alt="Al Ghwasa Technical Equipment Trading LLC"
+          width={240}
+          height={75}
+          priority
+          className={`${isCompact ? "h-13 sm:h-14 w-auto mt-4" : "h-14 sm:h-16 lg:h-20 w-auto"} object-contain logo-light`}
+        />
         <p
-          className={`font-semibold tracking-[0.16em] uppercase ${isCompact ? "mt-0.5 text-[8.5px]" : "mt-1.5 text-[10px]"
+          className={`font-semibold tracking-[0.16em] uppercase text-white/90 ${isCompact ? "mt-2 text-[10px] sm:text-[11px]" : "mt-2.5 text-[12px]"
             }`}
         >
           Al Ghwasa · Dubai
         </p>
-      </div>
-
-      {/* 2. CENTER: Brand Logo properly centered on the screen */}
-      <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none px-6">
-        <div className="flex flex-col items-center justify-center">
-          <Image
-            src="/images/logo.webp"
-            alt="Al Ghwasa Technical Equipment Trading LLC"
-            width={220}
-            height={68}
-            priority
-            className={`${isCompact ? "h-11 sm:h-12 w-auto" : "h-14 sm:h-16 lg:h-20 w-auto"} object-contain logo-light`}
-          />
-        </div>
       </div>
 
       {/* 3. NOTIFICATION CARDS (Middle/Lower area, frosted styling with subtle #0F2E53 borders) */}

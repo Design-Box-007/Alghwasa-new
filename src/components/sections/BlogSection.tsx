@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, BookOpen, ArrowUpRight, Clock, ArrowRight } from "lucide-react";
 import { BLOGS } from "@/lib/data/blogs";
+import { RevealAnimation } from "@/components/ui/RevealAnimation";
 
 interface BlogSectionProps {
   id?: string;
@@ -110,31 +111,29 @@ export function BlogSection({
   return (
     <section
       id={id}
-      className={`relative w-full bg-white py-14 sm:py-20 lg:py-24 border-b border-[#0F2E53]/10 overflow-hidden ${className}`}
+      className={`relative w-full bg-white py-4 sm:py-6 lg:py-8 border-b border-[#0F2E53]/10 overflow-hidden ${className}`}
     >
-      {/* Header with Technical Badge & Subtle Step Navigation */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-        <div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#0F2E53]/15 bg-[#0F2E53]/5 px-3 py-1 text-xs font-semibold text-[#0F2E53]">
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>Technical Publications &amp; Editorial</span>
+      {/* Header with Headings on the Left, Arrows & All Articles on the Right */}
+      <div className="w-full px-6 sm:px-11 lg:px-14 mb-3 sm:mb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4">
+        <RevealAnimation backgroundClass="bg-white" direction="bottom">
+          <div className="text-left">
+            <h2 className="text-2xl sm:text-3xl lg:text-[2rem] font-bold tracking-tight text-[#0F2E53] leading-snug">
+              Featured Editorial Articles
+            </h2>
+            <p className="mt-1 text-xs sm:text-[13px] lg:text-sm text-slate-600 leading-relaxed font-normal max-w-2xl">
+              Continuous insights on industrial hazard control, engineering regulations, and technical perspectives.
+            </p>
           </div>
-          <h2 className="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight text-[#0F2E53]">
-            Featured Editorial Articles
-          </h2>
-          <p className="mt-1 text-xs sm:text-sm text-slate-500 max-w-xl">
-            Continuous insights on industrial hazard control, engineering regulations, and technical perspectives.
-          </p>
-        </div>
+        </RevealAnimation>
 
-        {/* Manual Step Controls */}
-        <div className="flex items-center gap-3 self-start sm:self-auto">
-          <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-full border border-slate-200/80">
+        {/* Step Navigation Arrows & All Articles towards the Right */}
+        <div className="flex items-center justify-end gap-2.5 sm:gap-3 shrink-0 self-end sm:self-auto">
+          <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-full border border-slate-200">
             <button
               type="button"
               onClick={prevStep}
               className="w-8 h-8 rounded-full bg-white text-[#0F2E53] shadow-xs flex items-center justify-center hover:bg-slate-50 transition-all cursor-pointer"
-              aria-label="Previous story"
+              aria-label="Previous article"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
@@ -142,7 +141,7 @@ export function BlogSection({
               type="button"
               onClick={nextStep}
               className="w-8 h-8 rounded-full bg-white text-[#0F2E53] shadow-xs flex items-center justify-center hover:bg-slate-50 transition-all cursor-pointer"
-              aria-label="Next story"
+              aria-label="Next article"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -150,10 +149,10 @@ export function BlogSection({
 
           <Link
             href="/blogs"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0F2E53] hover:text-[#164377] transition-colors pl-2"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#0F2E53] hover:text-[#164377] transition-colors pl-1"
           >
             <span>All Articles</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
+            <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </Link>
         </div>
       </div>
@@ -176,7 +175,7 @@ export function BlogSection({
               key={card.slug}
               style={cardStyle}
               onClick={() => setActiveIndex(idx)}
-              className="cursor-pointer group w-[239px] lg:w-[285px]"
+              className="cursor-pointer group w-[265px] sm:w-[290px] lg:w-[335px] xl:w-[350px]"
             >
               <Link
                 href={`/blogs/${card.slug}`}
@@ -190,7 +189,7 @@ export function BlogSection({
               >
                 {/* Dynamic Technical Editorial Card (Aspect ratio 1800/2400) in Theme Blue */}
                 <div
-                  className="relative w-full overflow-hidden rounded-[20px] bg-gradient-to-br from-[#071933] via-[#0F2E53] to-[#164377] p-3.5 sm:p-4 lg:p-4.5 flex flex-col justify-between shadow-[0px_18px_40px_0px_rgba(15,46,83,0.25)] border border-white/15 transition-all duration-300 group-hover:shadow-[0px_24px_50px_0px_rgba(15,46,83,0.38)] group-hover:border-cyan-400/40 text-left select-none"
+                  className="relative w-full overflow-hidden rounded-[22px] bg-gradient-to-br from-[#071933] via-[#0F2E53] to-[#164377] p-4 sm:p-4.5 lg:p-5 flex flex-col justify-between shadow-[0px_18px_40px_0px_rgba(15,46,83,0.25)] border border-white/15 transition-all duration-300 group-hover:shadow-[0px_24px_50px_0px_rgba(15,46,83,0.38)] group-hover:border-cyan-400/40 text-left select-none"
                   style={{
                     width: "100%",
                     aspectRatio: "1800 / 2400",
@@ -202,7 +201,7 @@ export function BlogSection({
                   <div className="absolute -bottom-12 -left-12 w-28 h-28 bg-[#0284c7]/20 rounded-full blur-2xl pointer-events-none" />
 
                   {/* Top: Blog Image Thumbnail with Floating Category Badge */}
-                  <div className="relative z-10 w-full h-[120px] lg:h-[145px] rounded-xl overflow-hidden mb-2 lg:mb-2.5 border border-white/15 shrink-0 bg-slate-900/60 shadow-inner">
+                  <div className="relative z-10 w-full h-[135px] sm:h-[150px] lg:h-[175px] rounded-xl overflow-hidden mb-2.5 lg:mb-3 border border-white/15 shrink-0 bg-slate-900/60 shadow-inner">
                     <Image
                       src={card.imageUrl || "/images/industrial-facility-clean.jpg"}
                       alt={card.title}

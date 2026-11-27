@@ -183,9 +183,9 @@ export function AboutFoldableSection({
                 }}
                 className="absolute top-1/2 -translate-y-1/2 text-right pointer-events-none"
               >
-                <h1 className="font-display-hero text-[clamp(4.5rem,8.8vw,11.5rem)] font-black tracking-tight text-[#0F2E53] leading-[0.88] uppercase select-none block whitespace-nowrap">
+                <div className="font-display-hero text-[clamp(4.5rem,8.8vw,11.5rem)] font-black tracking-tight text-[#0F2E53] leading-[0.88] uppercase select-none block whitespace-nowrap">
                   AL
-                </h1>
+                </div>
               </motion.div>
 
               <motion.div
@@ -196,9 +196,9 @@ export function AboutFoldableSection({
                 }}
                 className="absolute top-1/2 -translate-y-1/2 text-left pointer-events-none"
               >
-                <h1 className="font-display-hero text-[clamp(4.5rem,8.8vw,11.5rem)] font-black tracking-tight text-[#0F2E53] leading-[0.88] uppercase select-none block whitespace-nowrap">
+                <div className="font-display-hero text-[clamp(4.5rem,8.8vw,11.5rem)] font-black tracking-tight text-[#0F2E53] leading-[0.88] uppercase select-none block whitespace-nowrap">
                   GHWASA
-                </h1>
+                </div>
               </motion.div>
             </div>
           </motion.div>
@@ -217,9 +217,9 @@ export function AboutFoldableSection({
                 }}
                 className="absolute left-1/2 -translate-x-1/2 text-center pointer-events-none"
               >
-                <h1 className="font-display-hero text-[clamp(3.4rem,13vw,4.8rem)] font-black tracking-tight text-[#0F2E53] leading-none uppercase select-none block whitespace-nowrap">
+                <div className="font-display-hero text-[clamp(3.4rem,13vw,4.8rem)] font-black tracking-tight text-[#0F2E53] leading-none uppercase select-none block whitespace-nowrap">
                   AL
-                </h1>
+                </div>
               </motion.div>
 
               <motion.div
@@ -230,9 +230,9 @@ export function AboutFoldableSection({
                 }}
                 className="absolute left-1/2 -translate-x-1/2 text-center pointer-events-none"
               >
-                <h1 className="font-display-hero text-[clamp(3.4rem,13vw,4.8rem)] font-black tracking-tight text-[#0F2E53] leading-none uppercase select-none block whitespace-nowrap">
+                <div className="font-display-hero text-[clamp(3.4rem,13vw,4.8rem)] font-black tracking-tight text-[#0F2E53] leading-none uppercase select-none block whitespace-nowrap">
                   GHWASA
-                </h1>
+                </div>
               </motion.div>
             </div>
           </motion.div>

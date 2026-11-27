@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import { motion, MotionValue, useTransform } from "motion/react";
 import { DeviceFinishId, DEVICE_FINISHES } from "@/lib/config/design-tokens";
 import { FOLDFOLIO_CONFIG } from "@/lib/animations/fold-config";
@@ -172,6 +172,30 @@ export function FoldableDevice3D({
   const lockScreenOpacity = useTransform(callOverlayOpacity, (val) => 1 - val);
   const isCallActive = useTransform(callOverlayOpacity, (val) => val > 0.5);
 
+  // Forward mouse wheel and touch gestures on the phone directly to window scroll
+  const touchStartY = useRef(0);
+
+  const handleDeviceWheel = (e: React.WheelEvent) => {
+    const multiplier = e.deltaMode === 1 ? 40 : e.deltaMode === 2 ? window.innerHeight : 1;
+    const deltaY = e.deltaY * multiplier;
+    window.scrollBy(0, deltaY);
+  };
+
+  const handleDeviceTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 1) {
+      touchStartY.current = e.touches[0].clientY;
+    }
+  };
+
+  const handleDeviceTouchMove = (e: React.TouchEvent) => {
+    if (e.touches.length === 1) {
+      const currentY = e.touches[0].clientY;
+      const deltaY = touchStartY.current - currentY;
+      touchStartY.current = currentY;
+      window.scrollBy(0, deltaY);
+    }
+  };
+
   return (
     <div className="relative flex items-center justify-center pointer-events-none select-none">
       {/* 
@@ -216,6 +240,9 @@ export function FoldableDevice3D({
             scale: scaleZ,
             transformOrigin: "50% 50%",
           }}
+          onWheel={handleDeviceWheel}
+          onTouchStart={handleDeviceTouchStart}
+          onTouchMove={handleDeviceTouchMove}
           className="relative pointer-events-auto flex items-center justify-center"
         >
           <motion.div
@@ -264,7 +291,7 @@ export function FoldableDevice3D({
                   style={{
                     borderRadius: "34px",
                   }}
-                  className="relative w-full h-full bg-white overflow-hidden shadow-inner"
+                  className="relative w-full h-full bg-[#0F2E53] overflow-hidden shadow-inner"
                 >
                   <InternalDeviceWebsite
                     motionProgress={innerProgress}
@@ -480,7 +507,7 @@ export function FoldableDevice3D({
                     style={{
                       borderRadius: "34px",
                     }}
-                    className="relative w-full h-full bg-white overflow-hidden shadow-inner"
+                    className="relative w-full h-full bg-[#0F2E53] overflow-hidden shadow-inner"
                   >
                     {/* Layer 1: Cover Lock Screen (visible initially, fades out as incoming call appears) */}
                     <motion.div
@@ -562,6 +589,9 @@ export function FoldableDevice3D({
             scale: scaleZ,
             transformOrigin: "50% 50%",
           }}
+          onWheel={handleDeviceWheel}
+          onTouchStart={handleDeviceTouchStart}
+          onTouchMove={handleDeviceTouchMove}
           className="relative pointer-events-auto flex items-center justify-center"
         >
           <motion.div
@@ -606,7 +636,7 @@ export function FoldableDevice3D({
                   style={{
                     borderRadius: "32px",
                   }}
-                  className="relative w-full h-full bg-white overflow-hidden shadow-inner"
+                  className="relative w-full h-full bg-[#0F2E53] overflow-hidden shadow-inner"
                 >
                   <InternalDeviceWebsite
                     motionProgress={innerProgress}

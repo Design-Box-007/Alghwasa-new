@@ -91,6 +91,15 @@ body {
   }
 }
 
+@keyframes scrollRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 .animate-scroll-left,
 .animate-marquee {
   animation: scrollLeft 40s linear infinite;
@@ -102,19 +111,28 @@ body {
   animation-play-state: paused;
 }
 
+.animate-marquee-reverse {
+  animation: scrollRight 40s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-reverse:hover {
+  animation-play-state: paused;
+}
+
 /* Blog Cover Flow responsive geometry */
 .blog-coverflow-stage {
-  --tx-1: 248px;
-  --tx-2: 426px;
-  --tx-3: 596px;
-  height: 420px;
+  --tx-1: 275px;
+  --tx-2: 475px;
+  --tx-3: 660px;
+  height: 460px;
 }
 
 @media (min-width: 1024px) {
   .blog-coverflow-stage {
-    --tx-1: 300px;
-    --tx-2: 520px;
-    --tx-3: 730px;
-    height: 490px;
+    --tx-1: 345px;
+    --tx-2: 590px;
+    --tx-3: 820px;
+    height: 545px;
   }
 }

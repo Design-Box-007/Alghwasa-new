@@ -1,271 +1,400 @@
 "use client";
 
-import { useState } from "react";
-import { SITE_METADATA } from "@/lib/data/site-content";
-import {
-  MapPin,
-  Calendar,
-  CheckCircle2,
-  Gauge,
-  Sparkles,
-  ShieldCheck,
-  PhoneCall,
-  Clock,
-  Send,
-} from "lucide-react";
+import { useState, useRef } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { motion, AnimatePresence } from "motion/react";
+import { ArrowRight, ChevronLeft, ChevronRight, ChevronDown, ChevronUp } from "lucide-react";
+import { SiteHeader } from "@/components/layout/SiteHeader";
+import { SiteFooter } from "@/components/layout/SiteFooter";
+import { RevealAnimation } from "@/components/ui/RevealAnimation";
 
-export default function ExperienceCentrePage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    company: "",
-    preferredDate: "",
-    interests: "",
-  });
+// Gallery images
+const GALLERY_IMAGES = [
+  "/images/Experience-Center/new-images/1.jpg",
+  "/images/Experience-Center/new-images/2.jpg",
+  "/images/Experience-Center/new-images/3.jpg",
+  "/images/Experience-Center/new-images/4.jpg",
+  "/images/Experience-Center/new-images/5.jpg",
+];
 
-  const [booked, setBooked] = useState(false);
+// Featured articles
+const FEATURED_ARTICLES = [
+  {
+    title: "What Is Gas Detection? A Complete Guide to Industrial Gas Monitoring",
+    slug: "what-is-gas-detection",
+    category: "Gas Detection & Monitoring",
+    date: "September 1, 2026",
+    description:
+      "Gas detection is the process of identifying and measuring gases in the atmosphere to determine whether potentially hazardous conditions are present in industrial workplaces.",
+    imgSrc: "/blogs/What Is Gas Detection A Complete Guide to Industrial Gas Monitoring.png",
+  },
+  {
+    title: "How to Choose the Right Gas Detector for Your Workplace",
+    slug: "how-to-choose-the-right-gas-detector",
+    category: "Gas Detection & Monitoring",
+    date: "September 2, 2026",
+    description:
+      "Learn how to choose the right gas detector based on the target gas, workplace environment, application, sampling methods, and monitoring requirements.",
+    imgSrc: "/blogs/How to Choose the Right Gas Detector for Your Workplace.png",
+  },
+  {
+    title: "What Is a Gas Detector Tube and How Does It Work?",
+    slug: "what-is-a-gas-detector-tube",
+    category: "Gas Detector Tubes & Sampling",
+    date: "September 3, 2026",
+    description:
+      "A gas detector tube is a measurement device used to detect and estimate the concentration of a specific gas or vapour in air using direct-reading chemical reagents.",
+    imgSrc: "/blogs/What Is a Gas Detector Tube and How Does It Work.png",
+  },
+];
 
-  const handleBooking = (e: React.FormEvent) => {
-    e.preventDefault();
-    setBooked(true);
+// 10 FAQs
+const FAQS = [
+  {
+    question: "What gas detection equipment does Al Ghwasa supply?",
+    answer:
+      "Al Ghwasa supplies a wide range of gas detection equipment, including GASTEC gas detector tubes, gas sampling pumps, H₂S gas detectors, data loggers, automatic air sampling pumps, calibration equipment, confined-space sampling accessories, and specialized gas monitoring systems for industrial and safety applications.",
+  },
+  {
+    question: "Is Al Ghwasa an authorized GASTEC distributor in the UAE?",
+    answer:
+      "Yes. Al Ghwasa is an authorized GASTEC distributor for the Middle East and Africa, supplying genuine Japanese GASTEC gas detection equipment and providing technical support to customers across the region.",
+  },
+  {
+    question: "Where can I buy GASTEC gas detector tubes in the UAE and GCC?",
+    answer:
+      "Al Ghwasa supplies GASTEC gas detector tubes and sampling equipment across the UAE and GCC, including Saudi Arabia, Qatar, Oman, Kuwait and Bahrain. Customers can submit an enquiry through the website to request product availability and pricing.",
+  },
+  {
+    question: "What gases can GASTEC detector tubes detect?",
+    answer:
+      "GASTEC offers detector tubes for hundreds of gases and vapours, including hydrogen sulphide (H₂S), ammonia, carbon monoxide, benzene, formaldehyde, sulfur dioxide, hydrocarbons, VOCs and many other industrial and environmental contaminants. The GASTEC system supports more than 500 chemical applications.",
+  },
+  {
+    question: "What is a GASTEC gas detector tube used for?",
+    answer:
+      "A GASTEC gas detector tube is used for rapid on-site measurement of gases and vapours in air. Air is drawn through the detector tube using a compatible sampling pump, producing a visible colour change that can be compared with the calibrated scale printed on the tube.",
+  },
+  {
+    question: "Do you supply H₂S gas detection equipment for sewers and wastewater?",
+    answer:
+      "Yes. Al Ghwasa supplies H₂S gas detection and monitoring solutions for sewer and wastewater applications, including the GASTEC GHS-8AT-EX H₂S data logger for continuous monitoring and corrosion-prevention applications in sewer networks.",
+  },
+  {
+    question: "Can GASTEC equipment be used for confined-space gas detection?",
+    answer:
+      "Yes. GASTEC sampling pumps, detector tubes and extension hoses can be used for confined-space gas testing, including applications involving manholes, storage tanks, silos, process vessels and other difficult-to-access areas. Remote sampling accessories allow air to be tested before personnel enter potentially hazardous environments.",
+  },
+  {
+    question: "Which industries use Al Ghwasa gas detection solutions?",
+    answer:
+      "Our gas detection solutions are suitable for oil & gas, petrochemical, marine and shipping, wastewater, chemical processing, construction, mining, utilities, industrial hygiene, laboratories, emergency response, environmental monitoring and confined-space operations. Different detector tubes and monitoring systems are selected according to the gas and application being tested.",
+  },
+  {
+    question: "Do you provide technical support, training and calibration services?",
+    answer:
+      "Yes. Al Ghwasa provides product demonstrations, technical guidance, equipment training, calibration and maintenance support for applicable GASTEC equipment and sampling pumps.",
+  },
+  {
+    question: "How can I request a quote for GASTEC gas detection equipment?",
+    answer:
+      "You can select the required GASTEC detector tube, gas sampling pump, H₂S monitor or other gas detection equipment on our website and submit an enquiry. Our team will assist with product selection, availability, pricing and technical requirements.",
+  },
+];
+
+export default function ExperienceCenterPage() {
+  const [selectedIdx, setSelectedIdx] = useState(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollThumbIntoView = (index: number) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const child = el.children[index] as HTMLElement;
+    if (child) {
+      el.scrollTo({
+        left: child.offsetLeft - el.clientWidth / 2 + child.clientWidth / 2,
+        behavior: "smooth",
+      });
+    }
   };
 
-  const facilities = [
-    {
-      title: "ATEX Static Grounding Test Rig",
-      desc: "Simulate road tanker and rail car loading conditions with real-time Earth-Rite® loop resistance interlock verification.",
-      icon: Sparkles,
-    },
-    {
-      title: "Direct-Reading Gas Detection Chamber",
-      desc: "Hands-on sampling with Gastec detector tubes, multi-gas portable sensors, and span gas bump-testing procedures.",
-      icon: Gauge,
-    },
-    {
-      title: "MARPOL 15 PPM Bilge Calibration Station",
-      desc: "Live optical sensor testing and data logger retrieval for Brannstrom Bilgmon 488 marine pollution prevention systems.",
-      icon: ShieldCheck,
-    },
-    {
-      title: "High Pressure Hydrostatic Power Units",
-      desc: "Hydrorex portable test rig demonstrations capable of reaching pressures up to 10,000 PSI safely.",
-      icon: CheckCircle2,
-    },
-  ];
-
   return (
-    <div className="py-16 sm:py-24 bg-white text-[#0F2E53]">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#0F2E53]/15 bg-[#0F2E53]/5 px-3.5 py-1 text-xs font-semibold text-[#0F2E53]">
-            <MapPin className="w-3.5 h-3.5" />
-            <span>Dubai Live Demonstration & Calibration Facility</span>
-          </div>
-          <h1 className="text-4xl font-extrabold tracking-tight text-[#0F2E53] sm:text-5xl">
-            Al Ghwasa Experience Centre
-          </h1>
-          <p className="text-base leading-relaxed text-[#0F2E53]/75">
-            Experience our comprehensive range of marine safety and ATEX explosion protection
-            technologies before deploying them to your offshore fleet or chemical plant.
-          </p>
-        </div>
+    <div className="min-h-screen bg-white text-[#0F2E53] flex flex-col">
+      <SiteHeader />
 
-        {/* Facilities Grid */}
-        <div className="mt-16">
-          <h2 className="text-2xl font-bold tracking-tight text-[#0F2E53] mb-8">
-            Demonstration Stations & Facilities
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-            {facilities.map((fac) => {
-              const Icon = fac.icon;
-              return (
-                <div
-                  key={fac.title}
-                  className="rounded-3xl border border-[#0F2E53]/15 bg-white p-8 shadow-sm hover:border-[#0F2E53]/30 transition-all"
-                >
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#0F2E53] text-white shadow-md shadow-[#0F2E53]/20">
-                    <Icon className="h-5 w-5" />
+      <main className="flex-1 w-full overflow-hidden">
+        {/* ========================================================= */}
+        {/* SECTION 1: HERO HEADER                                    */}
+        {/* ========================================================= */}
+        <header className="py-5 lg:px-10 p-5 w-full">
+          {/* Top Title & Subtitle */}
+          <RevealAnimation
+            direction="bottom"
+            outerClass="flex flex-col lg:flex-row items-start justify-between lg:items-center py-4 gap-3 w-full"
+          >
+            <h1 className="font-inter font-normal text-[28px] md:text-[30px] lg:text-[48px] leading-[1.3] text-left text-[#0F2E53]">
+              Experience Innovation in Action
+            </h1>
+            <p className="text-base sm:text-lg font-light text-gray-600">
+              Experience the Power of Solutions in Action
+            </p>
+          </RevealAnimation>
+
+          {/* Hero Banner Image Card */}
+          <RevealAnimation
+            direction="bottom"
+            outerClass="w-full lg:h-[520px] h-[400px] relative overflow-hidden rounded-[32px] sm:rounded-4xl p-6 sm:p-10 flex items-end justify-start shadow-xl"
+          >
+            <Image
+              src="/images/Experience-Center/new-images/4.jpg"
+              alt="Al Ghwasa Experience Center Hero"
+              fill
+              priority
+              sizes="100vw"
+              className="w-full h-full absolute inset-0 object-center object-cover z-10 brightness-85"
+            />
+            {/* Gradient Overlay */}
+            <div className="absolute inset-x-0 bottom-0 lg:h-44 h-60 bg-gradient-to-t from-[#143C66] to-transparent z-20 pointer-events-none" />
+
+            {/* Overlay Text & Explore Button */}
+            <div className="relative z-30 flex flex-col lg:flex-row justify-between items-start lg:items-center w-full lg:gap-10 gap-4">
+              <p className="font-inter text-base sm:text-lg lg:text-xl text-white font-normal max-w-2xl leading-relaxed">
+                Leading Gas Detection &amp; Safety Solutions Provider in the UAE, GCC &amp; Africa
+              </p>
+              <Link
+                href="/categories"
+                className="flex items-center gap-2 font-bold whitespace-nowrap bg-white py-2.5 px-4 rounded-full text-[#0F2E53] hover:bg-gray-100 transition-colors shadow-lg group cursor-pointer text-sm sm:text-base"
+              >
+                <span>Explore our Products</span>
+                <span className="border border-[#0F2E53]/20 rounded-full p-1.5 flex items-center justify-center transition-transform group-hover:translate-x-1">
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </Link>
+            </div>
+          </RevealAnimation>
+        </header>
+
+        {/* ========================================================= */}
+        {/* SECTION 2: OUR EXPERIENCE CENTER GALLERY / CAROUSEL       */}
+        {/* ========================================================= */}
+        <section className="lg:px-10 px-5 py-8 sm:py-12 w-full">
+          <div className="flex justify-between mb-6 items-end">
+            <h2 className="font-inter font-normal text-[28px] md:text-[30px] lg:text-[48px] leading-[1.3] text-[#0F2E53]">
+              Our Experience Center
+            </h2>
+          </div>
+
+          <div className="relative flex flex-col items-center w-full">
+            {/* Main Showcase Image */}
+            <div className="relative w-full h-[300px] sm:h-[450px] md:h-[580px] lg:h-[680px] overflow-hidden rounded-[24px] sm:rounded-[30px] shadow-lg bg-gray-100">
+              <Image
+                src={GALLERY_IMAGES[selectedIdx]}
+                alt={`Al Ghwasa Experience Center ${selectedIdx + 1}`}
+                fill
+                priority={selectedIdx === 0}
+                sizes="100vw"
+                className="object-cover w-full h-full transition-all duration-500"
+              />
+            </div>
+
+            {/* Thumbnail Navigation Strip */}
+            <div className="flex items-center justify-center gap-2 sm:gap-4 mt-6 w-full">
+              <button
+                onClick={() => {
+                  setSelectedIdx((prev) => {
+                    const next = prev === 0 ? GALLERY_IMAGES.length - 1 : prev - 1;
+                    scrollThumbIntoView(next);
+                    return next;
+                  });
+                }}
+                className="p-1 hover:text-[#0F2E53] text-gray-500 transition-colors cursor-pointer"
+                aria-label="Previous gallery image"
+              >
+                <ChevronLeft size={36} className="sm:w-10 sm:h-10" />
+              </button>
+
+              <div
+                ref={scrollRef}
+                className="flex gap-3 sm:gap-4 overflow-x-auto scroll-smooth px-2 py-2 max-w-full [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+              >
+                {GALLERY_IMAGES.map((img, i) => (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      setSelectedIdx(i);
+                      scrollThumbIntoView(i);
+                    }}
+                    className={`relative border-2 rounded-lg flex-shrink-0 p-0.5 cursor-pointer transition-all duration-300 overflow-hidden ${
+                      i === selectedIdx
+                        ? "border-blue-500 scale-105 shadow-md"
+                        : "border-transparent opacity-75 hover:opacity-100"
+                    }`}
+                    aria-label={`View gallery image ${i + 1}`}
+                  >
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 relative rounded overflow-hidden">
+                      <Image
+                        src={img}
+                        alt={`Thumbnail ${i + 1}`}
+                        fill
+                        sizes="80px"
+                        className="object-cover"
+                      />
+                    </div>
+                  </button>
+                ))}
+              </div>
+
+              <button
+                onClick={() => {
+                  setSelectedIdx((prev) => {
+                    const next = prev === GALLERY_IMAGES.length - 1 ? 0 : prev + 1;
+                    scrollThumbIntoView(next);
+                    return next;
+                  });
+                }}
+                className="p-1 hover:text-[#0F2E53] text-gray-500 transition-colors cursor-pointer"
+                aria-label="Next gallery image"
+              >
+                <ChevronRight size={36} className="sm:w-10 sm:h-10" />
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================= */}
+        {/* SECTION 3: FEATURED ARTICLES                              */}
+        {/* ========================================================= */}
+        <section className="w-full px-5 lg:px-10 py-12 sm:py-16 bg-white">
+          <div className="flex flex-col items-center text-center justify-center mb-8 sm:mb-12 max-w-3xl mx-auto">
+            <RevealAnimation backgroundClass="bg-white" direction="bottom">
+              <h2 className="font-inter font-normal text-[28px] md:text-[30px] lg:text-[48px] leading-[1.3] text-[#0F2E53] mb-2 text-center mx-auto">
+                Featured Articles
+              </h2>
+            </RevealAnimation>
+            <RevealAnimation backgroundClass="bg-white" direction="bottom">
+              <p className="font-inter font-normal text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed mt-2 text-center mx-auto">
+                Expert guides, product overviews, and safety insights on GASTEC gas detection tubes and
+                systems — helping protect workers and maintain compliance across the GCC and
+                international markets.
+              </p>
+            </RevealAnimation>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 font-inter w-full">
+            {FEATURED_ARTICLES.map((article, i) => (
+              <RevealAnimation
+                key={article.slug || i}
+                direction="bottom"
+                backgroundClass="bg-white"
+                outerClass="rounded-2xl h-full"
+              >
+                <div className="group flex flex-col bg-white rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 h-full shadow-sm hover:shadow-md border border-gray-100">
+                  <Link
+                    href={`/blogs/${article.slug}`}
+                    className="relative w-full aspect-[16/10] overflow-hidden rounded-2xl bg-gray-100 block"
+                  >
+                    <Image
+                      src={article.imgSrc}
+                      alt={article.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover w-full h-full transform transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </Link>
+
+                  <div className="pt-4 p-5 flex flex-col flex-grow space-y-2.5">
+                    <div className="flex items-center justify-between text-xs text-gray-500">
+                      <span className="inline-block px-2.5 py-1 bg-gray-100 text-[#0F2E53] font-medium rounded-md text-[11px] sm:text-xs">
+                        {article.category}
+                      </span>
+                      <span className="text-gray-400 font-normal ml-auto text-[11px] sm:text-xs">
+                        {article.date}
+                      </span>
+                    </div>
+
+                    <Link href={`/blogs/${article.slug}`} className="block">
+                      <h3 className="text-lg sm:text-xl font-bold text-[#0F2E53] group-hover:text-[#143c66] transition-colors duration-200 line-clamp-2 leading-snug font-heading">
+                        {article.title}
+                      </h3>
+                    </Link>
+
+                    <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed flex-grow font-inter font-normal">
+                      {article.description}
+                    </p>
                   </div>
-                  <h3 className="mt-5 text-lg font-bold text-[#0F2E53]">
-                    {fac.title}
-                  </h3>
-                  <p className="mt-2 text-xs leading-relaxed text-[#0F2E53]/70">
-                    {fac.desc}
-                  </p>
                 </div>
+              </RevealAnimation>
+            ))}
+          </div>
+
+          <div className="flex justify-center mt-10">
+            <Link href="/blogs">
+              <button className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-[#0F2E53] hover:bg-[#0F2E53]/90 text-white font-medium text-sm transition-colors duration-200 cursor-pointer shadow-sm font-inter">
+                <span>View All</span>
+                <ArrowRight size={14} />
+              </button>
+            </Link>
+          </div>
+        </section>
+
+        {/* ========================================================= */}
+        {/* SECTION 4: FREQUENTLY ASKED QUESTIONS                     */}
+        {/* ========================================================= */}
+        <section className="px-5 lg:px-10 py-12 sm:py-16 w-full space-y-8 bg-white">
+          <RevealAnimation backgroundClass="bg-white" direction="bottom">
+            <h2 className="font-inter font-normal text-[28px] md:text-[30px] lg:text-[48px] leading-[1.3] text-[#0F2E53] mb-4 text-center mx-auto">
+              Frequently Asked Questions
+            </h2>
+          </RevealAnimation>
+
+          <div className="space-y-4 w-full">
+            {FAQS.map((faq, i) => {
+              const isOpen = openFaq === i;
+              return (
+                <RevealAnimation
+                  key={i}
+                  outerClass="overflow-hidden"
+                  backgroundClass="bg-white"
+                  direction="bottom"
+                >
+                  <div className="border border-[#0F2E53]/30 hover:border-[#0F2E53] rounded-2xl overflow-hidden transition-colors bg-white">
+                    <button
+                      className="w-full flex cursor-pointer justify-between text-left items-center py-5 px-5 sm:px-8 lg:px-10 bg-white text-black text-base sm:text-lg font-medium gap-4"
+                      onClick={() => setOpenFaq(isOpen ? null : i)}
+                      aria-expanded={isOpen}
+                    >
+                      <span className="text-[#0F2E53] font-medium">{faq.question}</span>
+                      <span className="text-[#0F2E53] flex-shrink-0 transition-transform duration-300">
+                        {isOpen ? <ChevronUp size={22} /> : <ChevronDown size={22} />}
+                      </span>
+                    </button>
+
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3, ease: "easeInOut" }}
+                          className="overflow-hidden"
+                        >
+                          <div className="px-5 sm:px-8 lg:px-10 py-5 bg-gray-100 text-gray-800 text-sm sm:text-base leading-relaxed border-t border-gray-200">
+                            {faq.answer}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </RevealAnimation>
               );
             })}
           </div>
-        </div>
+        </section>
+      </main>
 
-        {/* Booking Form and Location Card */}
-        <div className="mt-20 grid grid-cols-1 lg:grid-cols-12 gap-12">
-          {/* Booking Form */}
-          <div className="lg:col-span-7 rounded-3xl border border-[#0F2E53]/15 bg-white p-8 shadow-sm">
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#0F2E53] mb-2">
-              <Calendar className="w-4 h-4" />
-              <span>Schedule a Guided Technical Visit</span>
-            </div>
-            <h3 className="text-2xl font-bold text-[#0F2E53]">
-              Book a Tour with Our Application Engineers
-            </h3>
-            <p className="mt-2 text-xs text-[#0F2E53]/70">
-              We arrange bespoke demonstrations for engineering teams, procurement directors,
-              and marine safety superintendents.
-            </p>
-
-            {booked ? (
-              <div className="my-10 text-center space-y-4 rounded-2xl bg-[#0F2E53]/5 p-8 border border-[#0F2E53]/20">
-                <CheckCircle2 className="mx-auto h-12 w-12 text-[#0F2E53]" />
-                <h4 className="text-lg font-bold text-[#0F2E53]">
-                  Visit Request Acknowledged
-                </h4>
-                <p className="text-xs text-[#0F2E53]/80 max-w-md mx-auto">
-                  Thank you, {formData.name}. Our facility coordinator will contact you shortly
-                  to confirm your date and prepare relevant equipment stations.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setBooked(false)}
-                  className="rounded-full bg-[#0F2E53] px-5 py-2 text-xs font-semibold text-white hover:bg-[#164377] transition-colors"
-                >
-                  Book Another Session
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleBooking} className="mt-6 space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-semibold text-[#0F2E53] mb-1">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="Jane Doe"
-                      className="w-full rounded-xl border border-[#0F2E53]/20 bg-white px-3.5 py-2.5 text-xs text-[#0F2E53] focus:border-[#0F2E53] focus:outline-none"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-[#0F2E53] mb-1">
-                      Company / Organization
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.company}
-                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      placeholder="Petrochem Ltd"
-                      className="w-full rounded-xl border border-[#0F2E53]/20 bg-white px-3.5 py-2.5 text-xs text-[#0F2E53] focus:border-[#0F2E53] focus:outline-none"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-semibold text-[#0F2E53] mb-1">
-                      Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="jane@company.com"
-                      className="w-full rounded-xl border border-[#0F2E53]/20 bg-white px-3.5 py-2.5 text-xs text-[#0F2E53] focus:border-[#0F2E53] focus:outline-none"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-[#0F2E53] mb-1">
-                      Phone Number *
-                    </label>
-                    <input
-                      type="tel"
-                      required
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      placeholder="+971 50 123 4567"
-                      className="w-full rounded-xl border border-[#0F2E53]/20 bg-white px-3.5 py-2.5 text-xs text-[#0F2E53] focus:border-[#0F2E53] focus:outline-none"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-[#0F2E53] mb-1">
-                    Areas of Interest / Equipment to Test
-                  </label>
-                  <textarea
-                    rows={3}
-                    value={formData.interests}
-                    onChange={(e) => setFormData({ ...formData, interests: e.target.value })}
-                    placeholder="e.g. Newson Gale static grounding, Gastec sampling pumps, Bilgmon 488 calibration..."
-                    className="w-full rounded-xl border border-[#0F2E53]/20 bg-white px-3.5 py-2.5 text-xs text-[#0F2E53] focus:border-[#0F2E53] focus:outline-none"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#0F2E53] py-3 text-xs font-bold uppercase tracking-wider text-white shadow-md hover:bg-[#164377] transition-colors"
-                >
-                  <Send className="w-4 h-4" />
-                  <span>Request Tour Appointment</span>
-                </button>
-              </form>
-            )}
-          </div>
-
-          {/* Location & Visiting Info */}
-          <div className="lg:col-span-5 rounded-3xl bg-[#0F2E53] text-white p-8 space-y-6 flex flex-col justify-between shadow-xl shadow-[#0F2E53]/20">
-            <div className="space-y-6">
-              <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-white/80">
-                <Clock className="w-4 h-4" />
-                <span>Visiting Hours</span>
-              </div>
-
-              <h3 className="text-2xl font-bold tracking-tight">
-                Dubai Technical Facility
-              </h3>
-
-              <div className="space-y-3 text-xs text-white/80">
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-4 h-4 text-white shrink-0 mt-0.5" />
-                  <div>
-                    <span className="font-semibold text-white block">{SITE_METADATA.address}</span>
-                    <span className="text-[11px] text-white/60">{SITE_METADATA.poBox}</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <Clock className="w-4 h-4 text-white shrink-0 mt-0.5" />
-                  <div>
-                    <span className="font-semibold text-white block">Sunday – Thursday</span>
-                    <span className="text-[11px] text-white/60">8:00 AM – 6:00 PM GST</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <PhoneCall className="w-4 h-4 text-white shrink-0 mt-0.5" />
-                  <div>
-                    <span className="font-semibold text-white block">Direct Desk</span>
-                    <span className="text-[11px] text-white/60">{SITE_METADATA.phone}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-2xl bg-white/10 p-4 border border-white/15 text-xs text-white/90">
-              <p className="font-semibold text-white">Parking & Access:</p>
-              <p className="mt-1 text-[11px] text-white/70 leading-normal">
-                Dedicated visitor parking available on-site. Close proximity to Dubai trade routes
-                and port zones.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <SiteFooter />
     </div>
   );
 }

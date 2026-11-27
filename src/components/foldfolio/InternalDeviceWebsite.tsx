@@ -17,7 +17,7 @@ export function InternalDeviceWebsite({
 }: InternalDeviceWebsiteProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // 1. SYNC SCROLL: Directly update container.scrollTop from motionProgress or scrollProgress
+  // SYNC SCROLL: Update container.scrollTop when window scroll progress changes
   useEffect(() => {
     if (!scrollContainerRef.current) return;
     const container = scrollContainerRef.current;
@@ -40,54 +40,36 @@ export function InternalDeviceWebsite({
     }
   }, [motionProgress, scrollProgress]);
 
-  // 2. NATIVE WHEEL FORWARDING:
-  // Forward wheel events over the phone directly to the window scroll runway
-  // so scrolling over the device naturally drives the presentation timeline
-  useEffect(() => {
-    const el = scrollContainerRef.current;
-    if (!el) return;
-
-    const onNativeWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      window.scrollBy({ top: e.deltaY, behavior: "auto" });
-    };
-
-    el.addEventListener("wheel", onNativeWheel, { passive: false });
-    return () => {
-      el.removeEventListener("wheel", onNativeWheel);
-    };
-  }, []);
-
   return (
-    <div className="relative w-full h-full bg-white text-[#0F2E53] flex flex-col overflow-hidden select-text">
-      {/* 1. TOP STATUS BAR (Device Header) */}
-      <div className="shrink-0 h-9 px-6 flex items-center justify-between border-b border-[#0F2E53]/10 bg-white z-30 select-none">
+    <div className="relative w-full h-full bg-[#0F2E53] text-white flex flex-col overflow-hidden select-text">
+      {/* 1. TOP STATUS BAR (Device Header in Signature Blue) */}
+      <div className="shrink-0 h-9 px-6 flex items-center justify-between border-b border-white/10 bg-[#0F2E53] z-30 select-none text-white">
         <div className="flex items-center gap-2">
-          <span className="text-xs font-bold tracking-tight text-[#0F2E53]">
+          <span className="text-xs font-bold tracking-tight text-white">
             09:41
           </span>
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
-          <span className="text-[10px] uppercase font-bold tracking-wider text-[#0F2E53]/60 hidden sm:inline">
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="text-[10px] uppercase font-bold tracking-wider text-blue-200 hidden sm:inline">
             Dubai HQ Online
           </span>
         </div>
 
-        <div className="flex items-center gap-3 text-[#0F2E53]">
-          <span className="text-[11px] font-bold tracking-wider">5G</span>
+        <div className="flex items-center gap-3 text-white">
+          <span className="text-[11px] font-bold tracking-wider text-blue-200">5G</span>
           {/* Battery Icon */}
           <div className="flex items-center gap-0.5">
-            <div className="w-5 h-2.5 rounded-sm border border-current p-0.5 flex items-center">
-              <div className="h-full w-full bg-current rounded-xs" />
+            <div className="w-5 h-2.5 rounded-sm border border-white/80 p-0.5 flex items-center">
+              <div className="h-full w-full bg-white rounded-xs" />
             </div>
-            <div className="w-0.5 h-1 bg-current rounded-r-xs" />
+            <div className="w-0.5 h-1 bg-white/80 rounded-r-xs" />
           </div>
         </div>
       </div>
 
-      {/* 2. INNER SCROLLABLE CANVAS: Renders ONLY AboutSection */}
+      {/* 2. INNER SCROLLABLE CANVAS: Renders AboutSection */}
       <div
         ref={scrollContainerRef}
-        className="flex-1 overflow-y-auto overflow-x-hidden relative p-0 [&::-webkit-scrollbar]:hidden"
+        className="flex-1 overflow-y-auto overflow-x-hidden relative p-0 bg-[#0F2E53] [&::-webkit-scrollbar]:hidden"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         <AboutSection id="internal-about" />

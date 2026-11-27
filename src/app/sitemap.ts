@@ -13,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
-      url: `${siteUrl}/about-us`,
+      url: `${siteUrl}/about`,
       lastModified: "2026-11-18",
       changeFrequency: "monthly",
       priority: 0.8,
@@ -33,6 +33,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${siteUrl}/experience-centre`,
       lastModified: "2026-11-18",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${siteUrl}/contact`,
+      lastModified: "2026-11-27",
       changeFrequency: "monthly",
       priority: 0.8,
     },

@@ -10,6 +10,15 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/experience-center",
+        destination: "/experience-centre",
+        permanent: true,
+      },
+    ];
+  },
   experimental: {
     staticGenerationMaxConcurrency: 1,
     staticGenerationRetryCount: 3,
