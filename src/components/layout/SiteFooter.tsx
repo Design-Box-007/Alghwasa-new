@@ -73,7 +73,7 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="/#contact" className="hover:text-white transition-colors block py-0.5">
+                <Link href="/contact" className="hover:text-white transition-colors block py-0.5">
                   Contact Us
                 </Link>
               </li>

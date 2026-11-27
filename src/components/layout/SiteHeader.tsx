@@ -65,6 +65,9 @@ export function SiteHeader() {
     if (item.href === "/industries" || item.href === "/#industries" || item.label === "Industries") {
       return pathname.startsWith("/industries");
     }
+    if (item.href === "/contact" || item.label === "Contact Us") {
+      return pathname.startsWith("/contact");
+    }
     if (item.href === "/#about") {
       return pathname.startsWith("/about");
     }
@@ -124,7 +127,7 @@ export function SiteHeader() {
         {/* Right Action & Mobile Toggle - Moved to the right */}
         <div className="flex items-center gap-3 shrink-0">
           <Link
-            href="/#contact"
+            href="/contact"
             className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-[#0F2E53] px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm shadow-[#0F2E53]/20 hover:bg-[#164377] transition-all hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2E53]"
           >
             <PhoneCall className="w-3.5 h-3.5" />

@@ -210,7 +210,7 @@ export function ContactSection({
                 <textarea
                   rows={3}
                   required
-                  placeholder="e.g. Enquiry for Fixed Gas Detector Replacement"
+                  placeholder="Equiry details (eg: Model, brand, quantity and other requirements)"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className="w-full px-4 py-3.5 rounded-lg border border-gray-300 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#0F2E53] focus:ring-1 focus:ring-[#0F2E53] resize-none"

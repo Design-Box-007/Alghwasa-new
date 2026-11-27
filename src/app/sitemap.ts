@@ -36,6 +36,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: `${siteUrl}/contact`,
+      lastModified: "2026-11-27",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
   ];
 
   const brandRoutes: MetadataRoute.Sitemap = BRANDS.map((brand) => ({

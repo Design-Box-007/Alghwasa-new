@@ -303,8 +303,8 @@ export function MobileNavigation() {
               {/* 3. QUICK CONTACT & QUOTE CTA CARDS */}
               <div className="p-5 border-t border-slate-200 bg-slate-50/70 space-y-3">
                 <Link
-                  href="/#contact"
-                  onClick={() => handleLinkClick("/#contact")}
+                  href="/contact"
+                  onClick={() => handleLinkClick("/contact")}
                   className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#0F2E53] py-3 text-sm font-semibold text-white shadow-md hover:bg-[#164377] transition-colors"
                 >
                   <Phone className="w-4 h-4" />
