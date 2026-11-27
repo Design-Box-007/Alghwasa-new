@@ -116,6 +116,51 @@ export const BLOGS: BlogPost[] = [
     readTime: "4 min read",
     imageUrl: "/images/industrial-facility-clean.jpg",
   },
+  {
+    title: "What Is Gas Detection? A Complete Guide to Industrial Gas Monitoring",
+    slug: "what-is-gas-detection",
+    excerpt: "Learn what gas detection is, how gas detectors work, common hazardous gases, and how industrial gas monitoring supports workplace safety.",
+    content: [
+      "Gas detection is the process of identifying and measuring gases in the atmosphere to determine whether potentially hazardous conditions are present in industrial workplaces.",
+      "Industrial facilities face risks from toxic gases like hydrogen sulphide (H2S), flammable hydrocarbon vapors, and oxygen-deficient atmospheres. Reliable gas monitoring provides real-time warning before thresholds become lethal.",
+      "Al Ghwasa supplies comprehensive Japanese GASTEC detector tubes and direct-reading systems for instant on-site atmospheric verification across GCC facilities."
+    ],
+    date: "September 2026",
+    author: "GASTEC Technical Division",
+    category: "Gas Detection",
+    readTime: "5 min read",
+    imageUrl: "/blogs/What Is Gas Detection A Complete Guide to Industrial Gas Monitoring.png",
+  },
+  {
+    title: "How to Choose the Right Gas Detector for Your Workplace",
+    slug: "how-to-choose-the-right-gas-detector",
+    excerpt: "Learn how to choose the right gas detector based on the target gas, workplace environment, application and monitoring requirements.",
+    content: [
+      "Selecting the appropriate gas detector requires evaluating the specific gases present, environmental temperature, relative humidity, cross-sensitivities, and required response times.",
+      "Direct-reading chemical detector tubes offer high accuracy and target specificity without complex electrical calibration, making them ideal for spot sampling and pre-entry verification.",
+      "For continuous ambient monitoring, portable electrochemical or infrared sensors provide ongoing audible and visual alarms to protect working personnel."
+    ],
+    date: "September 2026",
+    author: "GASTEC Technical Division",
+    category: "Gas Detection",
+    readTime: "6 min read",
+    imageUrl: "/blogs/How to Choose the Right Gas Detector for Your Workplace.png",
+  },
+  {
+    title: "What Is a Gas Detector Tube and How Does It Work?",
+    slug: "what-is-a-gas-detector-tube",
+    excerpt: "Learn how gas detector tubes work, how they are used with sampling pumps, what gases they measure and where they are used.",
+    content: [
+      "A gas detector tube is a hermetically sealed glass tube filled with high-purity chemical reagents that react specifically with target gases, producing a clear, calibrated color stain.",
+      "Using a precision manual sampling pump, an exact volume of air is drawn through the tube. The length of the colorimetric stain directly corresponds to gas concentration in parts per million (ppm).",
+      "GASTEC detector tubes measure over 500 chemical substances with world-leading precision, requiring no batteries or electronic recalibration."
+    ],
+    date: "September 2026",
+    author: "GASTEC Technical Division",
+    category: "Gas Detector Tubes",
+    readTime: "5 min read",
+    imageUrl: "/blogs/What Is a Gas Detector Tube and How Does It Work.png",
+  },
 ];
 
 export function getBlogBySlug(slug: string): BlogPost | undefined {

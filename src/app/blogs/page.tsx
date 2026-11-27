@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { BLOGS } from "@/lib/data/blogs";
 import { BookOpen, Clock, User, ArrowRight } from "lucide-react";
+import { RevealAnimation } from "@/components/ui/RevealAnimation";
 
 export const metadata: Metadata = {
   title: "Blogs & Technical Insights | Ghwasa Technical Equipment Trading",
@@ -13,19 +14,21 @@ export default function BlogsPage() {
   return (
     <div className="py-16 sm:py-24 bg-white text-[#0F2E53]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#0F2E53]/15 bg-[#0F2E53]/5 px-3.5 py-1 text-xs font-semibold text-[#0F2E53]">
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>Technical Knowledge & Standards</span>
+        <RevealAnimation backgroundClass="bg-white" direction="bottom">
+          <div className="max-w-3xl space-y-4">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#0F2E53]/15 bg-[#0F2E53]/5 px-3.5 py-1 text-xs font-semibold text-[#0F2E53]">
+              <BookOpen className="w-3.5 h-3.5" />
+              <span>Technical Knowledge & Standards</span>
+            </div>
+            <h1 className="text-4xl font-extrabold tracking-tight text-[#0F2E53] sm:text-5xl">
+              Technical Blogs & Insights
+            </h1>
+            <p className="text-base leading-relaxed text-[#0F2E53]/75">
+              Written by our Dubai application engineers to help maritime operators, plant
+              managers, and safety officers navigate international compliance standards.
+            </p>
           </div>
-          <h1 className="text-4xl font-extrabold tracking-tight text-[#0F2E53] sm:text-5xl">
-            Technical Blogs & Insights
-          </h1>
-          <p className="text-base leading-relaxed text-[#0F2E53]/75">
-            Written by our Dubai application engineers to help maritime operators, plant
-            managers, and safety officers navigate international compliance standards.
-          </p>
-        </div>
+        </RevealAnimation>
 
         {/* Blogs Grid */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">

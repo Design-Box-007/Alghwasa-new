@@ -2,13 +2,13 @@
 
 import { useState, useRef } from "react";
 import {
-  CheckCircle2,
   ArrowRight,
   Play,
   Pause,
   Volume2,
   VolumeX,
 } from "lucide-react";
+import { RevealAnimation } from "@/components/ui/RevealAnimation";
 
 interface HeroSectionProps {
   onNavigate?: (sectionId: string) => void;
@@ -56,134 +56,121 @@ export function HeroSection({
   return (
     <section
       id={id}
-      className={`relative w-full bg-white py-14 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 border-b border-[#0F2E53]/10 ${className}`}
+      className={`relative w-full bg-white pt-4 sm:pt-6 lg:pt-8 pb-4 sm:pb-6 lg:pb-8 px-3 sm:px-6 lg:px-8 ${className}`}
     >
-      {/* Outer Card Container matching the reference design */}
-      <div className="relative w-full rounded-[26px] sm:rounded-[32px] border border-slate-200/90 bg-white p-4 sm:p-6 lg:p-7 shadow-[0_12px_40px_-18px_rgba(15,46,83,0.08)]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+      {/* Outer Card Container: Deep blue background, enlarged height to eliminate blank space */}
+      <div className="relative w-full rounded-[24px] sm:rounded-[32px] bg-gradient-to-br from-[#0F2E53] via-[#0C2747] to-[#081B33] p-5 sm:p-8 lg:p-10 xl:p-12 border border-[#164377]/60 overflow-hidden text-white">
+
+        {/* Ambient background glows for visual depth and premium feel */}
+        <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-[#0284c7]/15 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-[#164377]/30 blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-center">
 
           {/* ========================================================= */}
-          {/* LEFT COLUMN: Reference Typography, Checklist & Footer Bar */}
+          {/* LEFT COLUMN: The Only H1 Tag, Copy & Reduced Button Size  */}
           {/* ========================================================= */}
-          <div className="lg:col-span-7 flex flex-col justify-center space-y-4">
-            {/* 001. Section Index Marker matching reference image */}
-            {/* <div>
-              <span className="text-xs sm:text-sm font-mono font-semibold text-slate-400 tracking-wider">
-                001.
-              </span>
-            </div> */}
+          <div className="lg:col-span-7 flex flex-col justify-center space-y-5 sm:space-y-6">
+            <RevealAnimation backgroundClass="bg-[#0F2E53]" direction="bottom">
+              {/* The ONLY H1 Tag on the entire page */}
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.25rem] xl:text-[2.65rem] font-bold tracking-tight text-white leading-[1.18]">
+                Industrial Safety &amp; Explosion Protection Solutions Across the Middle East
+              </h1>
 
-            {/* H1 Tag: Requested Title */}
-            <h1 className="text-2xl sm:text-3xl lg:text-[2rem] font-bold tracking-tight text-[#0F2E53] leading-snug">
-              Industrial Safety &amp; Explosion Protection Solutions Across the Middle East
-            </h1>
+              {/* P Tag: Lead description */}
+              <p className="text-xs sm:text-sm lg:text-[15px] text-blue-100/90 leading-relaxed font-normal mt-3">
+                We are an authorised distributor of world-leading industrial safety and protection
+                technologies, delivering advanced solutions for static grounding, gas detection,
+                anti-static control, explosion protection, pressure testing and hazardous-area
+                electrical equipment. Serving industries across the UAE, Saudi Arabia, Qatar,
+                Bahrain, Kuwait and Oman, we provide reliable products and technical solutions that
+                help protect people, facilities and industrial operations.
+              </p>
+            </RevealAnimation>
 
-            {/* P Tag: Requested Body Copy */}
-            <p className="text-xs sm:text-[13px] lg:text-sm text-slate-600 leading-relaxed font-normal">
-              We are an authorised distributor of world-leading industrial safety and protection
-              technologies, delivering advanced solutions for static grounding, gas detection,
-              anti-static control, explosion protection, pressure testing and hazardous-area
-              electrical equipment. Serving industries across the UAE, Saudi Arabia, Qatar,
-              Bahrain, Kuwait and Oman, we provide reliable products and technical solutions that
-              help protect people, facilities and industrial operations.
-            </p>
+            {/* Bottom Info Bar & Button fitted directly to text size */}
+            <div className="pt-1">
+              <RevealAnimation backgroundClass="bg-[#0F2E53]" direction="bottom">
+                <div className="rounded-2xl bg-white/[0.08] backdrop-blur-md p-3 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border border-white/10">
+                  <div className="flex flex-col">
+                    <span className="text-[10px] sm:text-[11px] text-blue-200 font-medium uppercase tracking-wider">
+                      Authorised GCC Distribution
+                    </span>
+                    <span className="text-xs sm:text-sm font-bold text-white">
+                      UAE · KSA · Qatar · Oman · Kuwait · Bahrain
+                    </span>
+                  </div>
 
-            {/* Checklist Items with Circular Outline Checkmarks matching reference */}
-            {/* <div className="space-y-2.5 pt-1">
-              <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700 font-medium">
-                <CheckCircle2 className="w-4 h-4 text-[#0F2E53] stroke-[2.2] shrink-0" />
-                <span>ATEX &amp; IECEx Certified Systems</span>
-              </div>
-              <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700 font-medium">
-                <CheckCircle2 className="w-4 h-4 text-[#0F2E53] stroke-[2.2] shrink-0" />
-                <span>Static Grounding &amp; Gas Detection Technologies</span>
-              </div>
-              <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700 font-medium">
-                <CheckCircle2 className="w-4 h-4 text-[#0F2E53] stroke-[2.2] shrink-0" />
-                <span>Dubai Testing, Calibration &amp; Technical Facility</span>
-              </div>
-            </div> */}
-
-            {/* Bottom Footer Bar: Starting / Partner Info & Pill Action Button matching reference */}
-            <div className="pt-2">
-              <div className="rounded-2xl bg-slate-100/80 p-3 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border border-slate-200/50">
-                <div className="flex flex-col">
-                  <span className="text-[10px] sm:text-[11px] text-slate-400 font-medium uppercase tracking-wider">
-                    Authorised GCC Distribution
-                  </span>
-                  <span className="text-xs sm:text-sm font-bold text-[#0F2E53]">
-                    UAE · KSA · Qatar · Oman · Kuwait · Bahrain
-                  </span>
+                  {/* Reduced button size fitted closely to text size */}
+                  <button
+                    type="button"
+                    onClick={() => handleActionClick("brands")}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-bold text-[#0F2E53] hover:bg-blue-50 transition-all group shrink-0 shadow-sm cursor-pointer"
+                  >
+                    <span>Explore Solutions</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-[#0F2E53] transition-transform group-hover:translate-x-0.5" />
+                  </button>
                 </div>
-
-                <button
-                  type="button"
-                  onClick={() => handleActionClick("brands")}
-                  className="inline-flex items-center gap-2.5 rounded-full bg-white pl-4 pr-1.5 py-1.5 text-xs sm:text-sm font-semibold text-[#0F2E53] shadow-sm border border-slate-200 hover:bg-slate-50 hover:shadow transition-all group shrink-0"
-                >
-                  <span>Explore Solutions</span>
-                  <span className="w-7 h-7 rounded-full bg-[#0284c7] text-white flex items-center justify-center transition-transform group-hover:scale-105 group-hover:bg-[#0369a1] shadow-xs">
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
-                </button>
-              </div>
+              </RevealAnimation>
             </div>
           </div>
 
           {/* ========================================================= */}
-          {/* RIGHT COLUMN: Industrial Video in Reference Media Card    */}
+          {/* RIGHT COLUMN: Big Square Industrial Video                 */}
           {/* ========================================================= */}
-          <div className="lg:col-span-5 flex items-center justify-center h-full">
-            <div className="relative w-full aspect-[4/3] min-h-[260px] sm:min-h-[320px] lg:min-h-[380px] rounded-2xl sm:rounded-[24px] overflow-hidden bg-slate-950 border border-slate-200/80 shadow-md group">
-              {/* Industrial Video */}
-              <video
-                ref={videoRef}
-                src="https://ik.imagekit.io/ocxgdj8ih/ghwasa-migrated/industrial%20final.mp4?updatedAt=1793970483221"
-                autoPlay
-                loop
-                muted={isMuted}
-                playsInline
-                className="w-full h-full object-cover object-center"
-              />
+          <div className="lg:col-span-5 flex items-center justify-center w-full">
+            <RevealAnimation direction="right" outerClass="w-full max-w-[440px] sm:max-w-[500px] lg:max-w-none rounded-2xl sm:rounded-3xl shadow-2xl">
+              <div className="relative w-full aspect-square rounded-2xl sm:rounded-3xl overflow-hidden bg-slate-950 border border-white/15 group">
+                {/* Industrial Video */}
+                <video
+                  ref={videoRef}
+                  src="https://ik.imagekit.io/ocxgdj8ih/ghwasa-migrated/industrial%20final.mp4?updatedAt=1793970483221"
+                  autoPlay
+                  loop
+                  muted={isMuted}
+                  playsInline
+                  className="w-full h-full object-cover object-center"
+                />
 
-              {/* Status Badge in Corner */}
-              <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 rounded-full bg-[#0F2E53]/85 backdrop-blur-md px-2.5 py-1 text-[10px] font-semibold text-white border border-white/20 shadow-xs pointer-events-none">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span>Al Ghwasa Safety in Action</span>
+                {/* Status Badge in Corner */}
+                <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 rounded-full bg-[#0F2E53]/85 backdrop-blur-md px-2.5 py-1 text-[10px] font-semibold text-white border border-white/20 shadow-xs pointer-events-none">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Al Ghwasa Safety in Action</span>
+                </div>
+
+                {/* Media Controls Overlay (Fitted to Icon Size) */}
+                <div className="absolute bottom-3 right-3 z-10 flex items-center gap-1.5 opacity-90 transition-opacity group-hover:opacity-100">
+                  <button
+                    type="button"
+                    onClick={toggleMute}
+                    className="w-7 h-7 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-md text-white flex items-center justify-center transition-transform hover:scale-105 border border-white/20 cursor-pointer"
+                    aria-label={isMuted ? "Unmute audio" : "Mute audio"}
+                  >
+                    {isMuted ? (
+                      <VolumeX className="w-3.5 h-3.5 text-white/90" />
+                    ) : (
+                      <Volume2 className="w-3.5 h-3.5 text-white" />
+                    )}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={togglePlay}
+                    className="w-7 h-7 rounded-full bg-[#0F2E53]/90 hover:bg-[#0F2E53] backdrop-blur-md text-white flex items-center justify-center transition-transform hover:scale-105 border border-white/20 shadow-sm cursor-pointer"
+                    aria-label={isPlaying ? "Pause video" : "Play video"}
+                  >
+                    {isPlaying ? (
+                      <Pause className="w-3 h-3 fill-white text-white" />
+                    ) : (
+                      <Play className="w-3 h-3 fill-white text-white ml-0.5" />
+                    )}
+                  </button>
+                </div>
+
+                {/* Subtle Bottom Vignette */}
+                <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
               </div>
-
-              {/* Media Controls Overlay */}
-              <div className="absolute bottom-3 right-3 z-10 flex items-center gap-2 opacity-90 transition-opacity group-hover:opacity-100">
-                <button
-                  type="button"
-                  onClick={toggleMute}
-                  className="w-8 h-8 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-md text-white flex items-center justify-center transition-transform hover:scale-105 border border-white/20"
-                  aria-label={isMuted ? "Unmute audio" : "Mute audio"}
-                >
-                  {isMuted ? (
-                    <VolumeX className="w-4 h-4 text-white/90" />
-                  ) : (
-                    <Volume2 className="w-4 h-4 text-white" />
-                  )}
-                </button>
-
-                <button
-                  type="button"
-                  onClick={togglePlay}
-                  className="w-8 h-8 rounded-full bg-[#0F2E53]/90 hover:bg-[#0F2E53] backdrop-blur-md text-white flex items-center justify-center transition-transform hover:scale-105 border border-white/20 shadow-sm"
-                  aria-label={isPlaying ? "Pause video" : "Play video"}
-                >
-                  {isPlaying ? (
-                    <Pause className="w-3.5 h-3.5 fill-white text-white" />
-                  ) : (
-                    <Play className="w-3.5 h-3.5 fill-white text-white ml-0.5" />
-                  )}
-                </button>
-              </div>
-
-              {/* Subtle Bottom Vignette */}
-              <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-            </div>
+            </RevealAnimation>
           </div>
 
         </div>

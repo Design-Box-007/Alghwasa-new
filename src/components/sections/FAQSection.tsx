@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { Copy, Check } from "lucide-react";
+import { RevealAnimation } from "@/components/ui/RevealAnimation";
 
 interface FAQItem {
   question: string;
@@ -72,89 +71,59 @@ export function FAQSection({
   className = "",
   onNavigate,
 }: FAQSectionProps) {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText("info@ghwasa.com");
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   return (
     <section
       id={id}
-      className={`relative w-full bg-white py-14 sm:py-20 lg:py-24 px-5 sm:px-8 lg:px-12 border-b border-[#0F2E53]/10 ${className}`}
+      className={`relative w-full bg-white py-12 sm:py-16 lg:py-20 px-5 sm:px-8 lg:px-12 border-b border-[#0F2E53]/10 ${className}`}
     >
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start relative">
 
           {/* ========================================================= */}
-          {/* LEFT COLUMN: Title, Subtitle & Copy Email Pill           */}
+          {/* LEFT COLUMN: Title & Subtitle                             */}
           {/* Fixed / Sticky on large screens while right side scrolls   */}
           {/* ========================================================= */}
           <div className="lg:col-span-4 lg:sticky lg:top-20 self-start">
-            <h2
-              className="font-serif text-4xl sm:text-5xl font-normal text-[#121316] tracking-tight leading-[1.15]"
-              style={{
-                fontFamily: "Georgia, Cambria, 'Times New Roman', Times, serif",
-              }}
-            >
-              Questions
-            </h2>
-
-            <p className="mt-4 text-sm sm:text-[15px] text-slate-600 font-normal leading-relaxed max-w-sm">
-              Anything else? Send a note and we&apos;ll reply within a day.
-            </p>
-
-            {/* Copyable Email Pill Button */}
-            <div className="mt-7 flex items-center">
-              <button
-                type="button"
-                onClick={handleCopyEmail}
-                className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-slate-200/90 bg-white hover:bg-slate-50 text-xs sm:text-[13px] font-medium text-slate-800 shadow-[0_1px_2px_rgba(0,0,0,0.04)] hover:border-slate-300 transition-all cursor-pointer group"
-                aria-label="Copy email address"
+            <RevealAnimation backgroundClass="bg-white" direction="bottom">
+              <h2
+                className="font-serif text-4xl sm:text-5xl font-normal text-[#0F2E53] tracking-tight leading-[1.15]"
+                style={{
+                  fontFamily: "Georgia, Cambria, 'Times New Roman', Times, serif",
+                }}
               >
-                <span>info@ghwasa.com</span>
-                <span className="flex items-center gap-1.5 text-slate-400 group-hover:text-slate-600 transition-colors pl-2 border-l border-slate-200">
-                  {copied ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 text-emerald-600" />
-                      <span className="text-emerald-600 text-xs font-semibold">Copied</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5" />
-                      <span className="text-xs">Copy</span>
-                    </>
-                  )}
-                </span>
-              </button>
-            </div>
+                Questions
+              </h2>
+
+              <p className="mt-4 text-sm sm:text-[15px] text-slate-600 font-normal leading-relaxed max-w-sm">
+                Frequently asked questions about our equipment, certifications, and technical support.
+              </p>
+            </RevealAnimation>
           </div>
 
           {/* ========================================================= */}
-          {/* RIGHT COLUMN: 2-Column Grid of Minimal FAQ Cards         */}
-          {/* Exactly matching reference image styling (#f7f7f5 cards)  */}
+          {/* RIGHT COLUMN: 2-Column Grid of Blue FAQ Tile Cards        */}
+          {/* Blue background with pure white typography                 */}
           {/* ========================================================= */}
           <div className="lg:col-span-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-3.5">
               {FAQ_ITEMS.map((faq, index) => (
-                <div
-                  key={index}
-                  className="rounded-[20px] bg-[#f7f7f5] p-6 sm:p-7 flex flex-col justify-start transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs"
-                >
-                  <h3
-                    className="font-serif text-[17px] sm:text-[18px] text-[#121316] font-medium tracking-tight leading-snug"
-                    style={{
-                      fontFamily: "Georgia, Cambria, 'Times New Roman', Times, serif",
-                    }}
+                <RevealAnimation key={index} backgroundClass="bg-white" direction="bottom">
+                  <div
+                    className="h-full rounded-[20px] bg-[#0F2E53] border border-[#164377]/60 p-6 sm:p-7 flex flex-col justify-start transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:border-cyan-400/50 shadow-sm"
                   >
-                    {faq.question}
-                  </h3>
-                  <p className="font-sans text-[13px] sm:text-[13.5px] text-slate-600 font-normal leading-relaxed mt-2.5">
-                    {faq.answer}
-                  </p>
-                </div>
+                    <h3
+                      className="font-serif text-[17px] sm:text-[18px] text-white font-medium tracking-tight leading-snug"
+                      style={{
+                        fontFamily: "Georgia, Cambria, 'Times New Roman', Times, serif",
+                      }}
+                    >
+                      {faq.question}
+                    </h3>
+                    <p className="font-sans text-[13px] sm:text-[13.5px] text-white/90 font-normal leading-relaxed mt-2.5">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </RevealAnimation>
               ))}
             </div>
           </div>

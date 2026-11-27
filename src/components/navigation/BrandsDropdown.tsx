@@ -7,9 +7,10 @@ import { ChevronDown, ExternalLink, ShieldCheck } from "lucide-react";
 
 interface BrandsDropdownProps {
   onSelect?: () => void;
+  isActive?: boolean;
 }
 
-export function BrandsDropdown({ onSelect }: BrandsDropdownProps) {
+export function BrandsDropdown({ onSelect, isActive = false }: BrandsDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -50,14 +51,21 @@ export function BrandsDropdown({ onSelect }: BrandsDropdownProps) {
         aria-expanded={isOpen}
         aria-haspopup="true"
         onClick={() => setIsOpen(!isOpen)}
-        className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-[#0F2E53]/80 hover:text-[#0F2E53] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2E53] rounded-md"
+        className={`relative inline-flex items-center gap-1.5 px-3 py-2 text-sm rounded-md transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2E53] ${
+          isActive
+            ? "text-[#0F2E53] font-bold"
+            : "text-[#0F2E53]/75 hover:text-[#0F2E53] font-medium"
+        }`}
       >
-        <span>Brands</span>
+        <span>Our Products</span>
         <ChevronDown
           className={`w-3.5 h-3.5 transition-transform duration-200 ${
             isOpen ? "rotate-180" : ""
           }`}
         />
+        {isActive && (
+          <span className="absolute bottom-0 left-3 right-3 h-[2px] rounded-full bg-[#0F2E53]" />
+        )}
       </button>
 
       {/* Dropdown Menu Panel */}
@@ -66,7 +74,7 @@ export function BrandsDropdown({ onSelect }: BrandsDropdownProps) {
           <div className="mb-3 pb-2 border-b border-[#0F2E53]/10 flex items-center justify-between">
             <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#0F2E53]">
               <ShieldCheck className="w-4 h-4 text-[#0F2E53]" />
-              <span>Authorized Brand Partners</span>
+              <span>Authorized Products &amp; Brands</span>
             </div>
             <Link
               href="/#brands"

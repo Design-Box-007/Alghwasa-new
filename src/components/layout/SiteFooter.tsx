@@ -15,23 +15,23 @@ export function SiteFooter() {
 
   return (
     <footer className="w-full bg-[#0B203C] text-white pt-14 sm:pt-18 lg:pt-20 border-t border-[#164377]/40 relative overflow-hidden">
-      {/* 1. TOP FOOTER COLUMNS - Matching Reference Image 2 */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 pb-12 sm:pb-16 border-b border-white/10">
-          
+      {/* 1. TOP FOOTER COLUMNS */}
+      <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-10 xl:px-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-8 pb-12 sm:pb-16 border-b border-white/10 items-start">
+
           {/* COLUMN 1: BRAND LOGO & AUTHORIZED DISTRIBUTOR STATEMENT */}
-          <div className="space-y-4 lg:pr-4">
+          <div className="space-y-4">
             <Link href="/" className="inline-block transition-opacity hover:opacity-90">
               <Image
                 src="/images/logo.webp"
                 alt="Al Ghwasa Technical Equipment Trading LLC"
-                width={170}
-                height={55}
-                className="h-11 sm:h-12 w-auto object-contain"
+                width={260}
+                height={85}
+                className="h-14 sm:h-16 lg:h-20 w-auto object-contain"
               />
             </Link>
 
-            <p className="text-xs sm:text-[13px] text-white/70 leading-relaxed font-normal">
+            <p className="text-xs sm:text-[13px] text-white/70 leading-relaxed font-normal max-w-xs">
               Authorized GASTEC Japan Distributor across UAE, Saudi Arabia, Qatar, Oman, Kuwait, and Bahrain.
             </p>
           </div>
@@ -53,8 +53,13 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="/#about" className="hover:text-white transition-colors block py-0.5">
+                <Link href="/about" className="hover:text-white transition-colors block py-0.5">
                   About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/industries" className="hover:text-white transition-colors block py-0.5">
+                  Industries
                 </Link>
               </li>
               <li>
@@ -123,7 +128,7 @@ export function SiteFooter() {
           </div>
 
           {/* COLUMN 5: FOLLOW US */}
-          <div>
+          <div className="flex flex-col lg:items-end">
             <h4 className="text-sm font-bold text-white tracking-wide mb-4">
               Follow Us
             </h4>
@@ -168,29 +173,39 @@ export function SiteFooter() {
         </div>
       </div>
 
-      {/* 2. BELOW THE FOOTER: INDUSTRIAL BLUEPRINT GRAPHIC (Uploaded Image 3) */}
-      <div className="w-full relative mt-2 overflow-hidden bg-[#0B203C]">
+      {/* 2. INDUSTRIAL BLUEPRINT GRAPHIC - Complete Image Displayed Properly */}
+      <div className="w-full relative overflow-hidden bg-[#0B203C]">
         <div className="relative w-full">
           <Image
             src="/images/footer-blueprint.webp"
             alt="Al Ghwasa Marine and Industrial Refining Facility Blueprint"
-            width={1920}
-            height={850}
-            className="w-full h-auto object-cover max-h-[380px] sm:max-h-[480px] lg:max-h-[540px] opacity-95"
+            width={1024}
+            height={576}
+            className="w-full h-auto object-contain block select-none"
             priority={false}
           />
-
-          {/* Subtle gradient overlay to merge bottom edge smoothly */}
-          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#08172b] to-transparent pointer-events-none" />
         </div>
       </div>
 
       {/* 3. COPYRIGHT BAR */}
-      <div className="w-full bg-[#08172b] py-4 px-4 sm:px-6 lg:px-8 border-t border-white/10">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/50">
-          <p>© {new Date().getFullYear()} Al Ghwasa Technical Eqpt. Tdg. LLC. All rights reserved.</p>
-          <p className="text-[11px] text-white/40 font-mono">
+      <div className="w-full bg-[#08172b] py-4 px-4 sm:px-6 lg:px-10 xl:px-12 border-t border-white/10">
+        <div className="max-w-[1536px] mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/50">
+          <p className="text-center md:text-left">
+            © {new Date().getFullYear()} Al Ghwasa Technical Eqpt. Tdg. LLC. All rights reserved.
+          </p>
+          <p className="text-[11px] sm:text-xs text-white/60 font-mono text-center">
             Supplying UAE, Saudi Arabia, Qatar, Oman, Kuwait &amp; Bahrain
+          </p>
+          <p className="text-center md:text-right">
+            Developed By:{" "}
+            <a
+              href="https://pixelpanda.ae/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-white/80 hover:text-white hover:underline transition-colors"
+            >
+              Pixelpanda Technology
+            </a>
           </p>
         </div>
       </div>

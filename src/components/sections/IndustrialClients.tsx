@@ -93,11 +93,11 @@ export function IndustrialClients({
       aria-label="Trusted Marine and Industrial Equipment Brands"
       className={`w-full bg-white py-14 sm:py-20 lg:py-24 border-y border-slate-100 overflow-hidden ${className}`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-8 sm:mb-12">
+      {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-8 sm:mb-12">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1f2937] tracking-tight">
           Trusted Marine &amp; Industrial Equipment Brands
         </h2>
-      </div>
+      </div> */}
 
       {/* Marquee ticker container with subtle edge gradient masks */}
       <div className="relative w-full overflow-hidden">
